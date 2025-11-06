@@ -48,16 +48,17 @@ public class WavePrompt : MonoBehaviour
             Debug.Log("WavePrompt element shown!");
         }
     }
-    private float _oscillateSpeed = 0.008f; // How much to increment each frame
-    private float _oscillateRange = 75f; // How far it moves (in pixels)
+    
+    private float _oscillateSpeed = 3f; 
+    private float _oscillateRange = 75f; 
     private float _oscillateCounter;
 
     private void MoveWavePromptSideToSide()
     {
         if (_wavePromptElement != null && IsWavePromptVisible())
         {
-            // Increment counter each frame
-            _oscillateCounter += _oscillateSpeed;
+            // Use Time.deltaTime for frame rate independent movement
+            _oscillateCounter += _oscillateSpeed * Time.deltaTime;
 
             // Calculate oscillation using sine wave
             float oscillation = Mathf.Sin(_oscillateCounter) * _oscillateRange;
@@ -69,6 +70,7 @@ public class WavePrompt : MonoBehaviour
             _wavePromptElement.style.left = newLeft;
         }
     }
+
 
     private void HideWavePrompt()
     {
