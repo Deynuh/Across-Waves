@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Calls/ThirdCallScene.unity
     guid: 13e4af3d8d37834488c4623d9459063e
   - enabled: 1
+    path: Assets/Scenes/Calls/FourthCallScene.unity
+    guid: 403778d7d3f01734caa5a9763c700efb
+  - enabled: 1
     path: Assets/Scenes/Narratives/LastScene.unity
     guid: 53e921bbf93ab434e91561dcfe6f2711
   m_configObjects:

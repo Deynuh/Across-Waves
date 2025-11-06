@@ -16,5 +16,5 @@
             <ui:Label text="12:00 AM" name="Time" style="right: 0; top: auto; position: absolute; height: 44px; width: 104px; white-space: pre; -unity-text-align: middle-center; font-size: 18px; -unity-font-style: bold;" />
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="WavePrompt" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Art/wavePrompt.png?fileID=2800000&amp;guid=2da665f60005ab44da43a60b063942a3&amp;type=3#wavePrompt&quot;); right: 887px; left: 884px; bottom: auto; position: absolute; align-items: center; width: 150px; height: 145px; justify-content: space-evenly; align-self: center; top: 822px;" />
+    <ui:VisualElement name="WavePrompt" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Art/wavePrompt.png?fileID=2800000&amp;guid=2da665f60005ab44da43a60b063942a3&amp;type=3#wavePrompt&quot;); right: 887px; left: 884px; bottom: auto; position: absolute; align-items: center; width: 150px; height: 145px; justify-content: space-evenly; align-self: center; top: 822px; visibility: visible;" />
 </ui:UXML>

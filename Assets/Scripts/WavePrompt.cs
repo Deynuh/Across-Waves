@@ -1,55 +1,142 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class WavePrompt : MonoBehaviour
 {
-    private VisualElement root;
-    private VisualElement wavePromptElement;
+    private VisualElement _root;
+    private VisualElement _wavePromptElement;
 
     void Start()
     {
-        var uiDocument = GetComponent<UIDocument>();
-        root = uiDocument.rootVisualElement;
+        UIDocument uiDocument = GetComponent<UIDocument>();
+        _root = uiDocument.rootVisualElement;
 
         // Find your UI element by name/class
-        wavePromptElement = root.Q("wave-prompt");
+        _wavePromptElement = _root.Q("WavePrompt");
 
         // Initially hide it
-        wavePromptElement.style.display = DisplayStyle.None;
+        _wavePromptElement.style.display = DisplayStyle.None;
     }
 
     void Update()
     {
-        // Keep the B key for testing
+        // Currently using B to make wave prompt show up for testing
         if (Input.GetKeyDown(KeyCode.B))
         {
             ShowWavePrompt();
         }
+        
+        MoveWavePromptSideToSide();
+        WaveListener();
     }
 
     private void ShowWavePrompt()
     {
-        if (wavePromptElement != null)
+        if (_wavePromptElement != null)
         {
-            wavePromptElement.style.display = DisplayStyle.Flex;
-            Debug.Log("Wave detected - UI Builder element shown!");
+            _wavePromptElement.style.display = DisplayStyle.Flex;
+            _wavePromptElement.style.opacity = 0f; // Start fully transparent
+            
+            // Add transition for smooth fade
+            _wavePromptElement.style.transitionDuration = new List<TimeValue> { new TimeValue(0.5f) };
+            _wavePromptElement.style.transitionProperty = new List<StylePropertyName> { new StylePropertyName("opacity") };
+        
+            // Fade in after a small delay to ensure display is set
+            StartCoroutine(FadeIn());
+            
+            Debug.Log("WavePrompt element shown!");
+        }
+    }
+    private float _oscillateSpeed = 0.008f; // How much to increment each frame
+    private float _oscillateRange = 75f; // How far it moves (in pixels)
+    private float _oscillateCounter;
+
+    private void MoveWavePromptSideToSide()
+    {
+        if (_wavePromptElement != null && IsWavePromptVisible())
+        {
+            // Increment counter each frame
+            _oscillateCounter += _oscillateSpeed;
+
+            // Calculate oscillation using sine wave
+            float oscillation = Mathf.Sin(_oscillateCounter) * _oscillateRange;
+
+            // Center position minus half the element's width + oscillation
+            float centerX = (Screen.width * 0.5f) - (_wavePromptElement.resolvedStyle.width * 0.5f);
+            float newLeft = centerX + oscillation;
+
+            _wavePromptElement.style.left = newLeft;
         }
     }
 
-    public void HideWavePrompt()
+    private void HideWavePrompt()
     {
-        if (wavePromptElement != null)
+        if (_wavePromptElement != null)
         {
-            wavePromptElement.style.display = DisplayStyle.None;
-            Debug.Log("UI Builder element hidden!");
+            StartCoroutine(FadeOut());
+            Debug.Log("WavePrompt element hidden!");
         }
     }
     
-    public bool IsWavePromptVisible()
+    private System.Collections.IEnumerator FadeIn()
     {
-        if (wavePromptElement != null)
+        yield return null; // Wait one frame
+        _wavePromptElement.style.opacity = 1f; // Fade to visible
+    }
+
+    private System.Collections.IEnumerator FadeOut()
+    {
+        _wavePromptElement.style.opacity = 0f; // Fade to invisible
+        yield return new WaitForSeconds(0.5f); // Wait for fade to complete
+        _wavePromptElement.style.display = DisplayStyle.None; // Then hide
+    }
+
+    public int totalWavesNeeded = 10; // change as needed for each call
+    private int _waveCount;
+    private bool _wasMovingRight;
+    private bool _hasStartedMoving;
+    private void WaveListener()
+    {
+        
+        
+        if (IsWavePromptVisible())
         {
-            return wavePromptElement.style.display == DisplayStyle.Flex;
+            float mouseX = Input.GetAxis("Mouse X");
+            if (Mathf.Abs(mouseX) > 0.1f)
+            {
+                Debug.Log("Player is moving mouse horizontally.");
+                
+                bool movingRight = mouseX > 0;
+                
+                // If we've started moving and direction changed
+                if (_hasStartedMoving && _wasMovingRight != movingRight)
+                {
+                    _waveCount++;
+                
+                    if (_waveCount >= totalWavesNeeded)
+                    {
+                        Debug.Log(totalWavesNeeded + " waves complete!");
+                        HideWavePrompt();
+                        _waveCount = 0;
+                        _hasStartedMoving = false;
+                        return;
+                    }
+                }
+            
+                _wasMovingRight = movingRight;
+                _hasStartedMoving = true;
+            }
+
+        }
+    }
+    
+    private bool IsWavePromptVisible()
+    {
+        if (_wavePromptElement != null)
+        {
+            return _wavePromptElement.style.display == DisplayStyle.Flex && 
+                   _wavePromptElement.style.opacity.value > 0f;
         }
         return false;
     }
