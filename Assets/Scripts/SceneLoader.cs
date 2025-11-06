@@ -1,61 +1,34 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 public class SceneLoader : MonoBehaviour
 {
-    private UIDocument uiDocument;
-    private Button nextSceneButton;
-    private Label sceneInfoLabel;
+    public static SceneLoader Instance { get; private set; }
 
-    private void Start()
+    private void Awake()
     {
-        uiDocument = GetComponent<UIDocument>();
-        if (uiDocument != null)
-        {
-            SetupUI();
-        }
+        if (Instance != null && Instance != this) { Destroy(gameObject); return; }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
-    private void SetupUI()
+    private void OnEnable()
     {
-        var root = uiDocument.rootVisualElement;
-        
-        nextSceneButton = root.Q<Button>("NextSceneButton");
-        sceneInfoLabel = root.Q<Label>("SceneInfoLabel");
-
-        if (nextSceneButton != null)
-        {
-            nextSceneButton.clicked += LoadNextScene;
-        }
-        if (sceneInfoLabel != null)
-        {
-            string sceneName = SceneManager.GetActiveScene().name;
-            int sceneIndex = SceneManager.GetActiveScene().buildIndex;
-            sceneInfoLabel.text = $"Scene: {sceneName} (Index: {sceneIndex})";
-        }
+        GameEvents.OnActionComplete += LoadNextScene;
     }
+
+    private void OnDisable()
+    {
+        GameEvents.OnActionComplete -= LoadNextScene;
+    }
+
     public void LoadNextScene()
     {
         int currentIndex = SceneManager.GetActiveScene().buildIndex;
         int nextIndex = currentIndex + 1;
         if (nextIndex < SceneManager.sceneCountInBuildSettings)
-        {
             SceneManager.LoadScene(nextIndex);
-        }
         else
-        {
             Debug.Log("Already on last scene.");
-        }
-    }
-
-    public void LoadSceneByName(string sceneName)
-    {
-        SceneManager.LoadScene(sceneName);
-    }
-
-    public void QuitGame()
-    {
-        Application.Quit();
     }
 }
