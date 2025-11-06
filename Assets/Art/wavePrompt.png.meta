@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 8043f1b5d93fc2f4590580bb50103117
+guid: 2da665f60005ab44da43a60b063942a3
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4126882495801548486
-    second: desktop_0
+      213: 7111851072695366221
+    second: wavePrompt_0
+  - first:
+      213: 5748002087477668841
+    second: wavePrompt_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +103,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: desktop_0
+      name: wavePrompt_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1280
-        height: 720
+        x: 572
+        y: 571
+        width: 904
+        height: 1477
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +118,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a31a8f73c3e5ab6c0800000000000000
-      internalID: -4126882495801548486
+      spriteID: d42fc73dede52b260800000000000000
+      internalID: 7111851072695366221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: wavePrompt_1
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 62
+        width: 1660
+        height: 479
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9eb6f40c17105cf40800000000000000
+      internalID: 5748002087477668841
       vertices: []
       indices: 
       edges: []
@@ -135,7 +160,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      desktop_0: -4126882495801548486
+      wavePrompt_0: 7111851072695366221
+      wavePrompt_1: 5748002087477668841
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

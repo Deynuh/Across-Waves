@@ -10,4 +10,5 @@
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
     flex-direction: row;
+    background-color: rgb(62, 78, 111);
 }

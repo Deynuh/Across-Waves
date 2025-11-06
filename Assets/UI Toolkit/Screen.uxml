@@ -2,7 +2,7 @@
     <Style src="project://database/Assets/UI%20Toolkit/ScreenStyle.uss?fileID=7433441132597879392&amp;guid=8545382f428336d489b20f407cc84fdd&amp;type=3#ScreenStyle" />
     <ui:VisualElement name="Container" style="flex-grow: 1;">
         <ui:VisualElement name="Wallpaper" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Art/wallpaper.png?fileID=2800000&amp;guid=0d87412421db4464f84f71bb576dab1d&amp;type=3#wallpaper&quot;);">
-            <ui:VisualElement name="AppContainer" style="flex-grow: 1; flex-direction: row; margin-top: 5px; margin-right: 5px; margin-bottom: 5px; margin-left: 5px; width: 503px; align-self: stretch; justify-content: flex-start; align-items: flex-start; flex-wrap: wrap;">
+            <ui:VisualElement name="AppContainer" style="flex-grow: 1; flex-direction: row; margin-top: 5px; margin-right: 5px; margin-bottom: 5px; margin-left: 5px; width: 500px; align-self: stretch; justify-content: flex-start; align-items: flex-start; flex-wrap: wrap;">
                 <ui:Button name="App1" class="button" />
                 <ui:Button name="App2" class="button" style="white-space: pre; -unity-text-align: middle-center;" />
                 <ui:Button name="App1" class="button" />
@@ -10,6 +10,10 @@
                 <ui:Button name="App1" class="button" />
                 <ui:Button name="App2" class="button" style="white-space: pre; -unity-text-align: middle-center;" />
             </ui:VisualElement>
+            <ui:Button name="Countdown" style="top: 0; right: 0; position: absolute; height: 300px; width: 300px; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; margin-top: 30px; margin-right: 30px; margin-bottom: 30px; margin-left: 30px; background-color: rgb(93, 126, 142);" />
+        </ui:VisualElement>
+        <ui:VisualElement name="Taskbar" style="flex-grow: 1; align-content: auto; transform-origin: bottom; bottom: 0; position: absolute; height: 50px; width: 1920px; left: 0; top: auto; right: 0; background-color: rgb(202, 202, 202);">
+            <ui:Label text="12:00 AM" name="Time" style="right: 0; top: auto; position: absolute; height: 44px; width: 104px; white-space: pre; -unity-text-align: middle-center; font-size: 18px; -unity-font-style: bold;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
