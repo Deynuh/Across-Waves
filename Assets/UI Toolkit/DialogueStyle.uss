@@ -1,0 +1,9 @@
+.button {
+    bottom: 0;
+    right: 0;
+    left: 0;
+    position: absolute;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 500px;
+}
