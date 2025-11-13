@@ -4,15 +4,16 @@ using System.Collections.Generic;
 
 public class SimpleLineDraw : VisualElement
 {
-    List<Vector2> points = new List<Vector2>();
+    List<List<Vector2>> allLines = new List<List<Vector2>>();
+    List<Vector2> currentLine = new List<Vector2>();
     bool isDrawing = false;
 
     public SimpleLineDraw()
     {
         RegisterCallback<PointerDownEvent>(evt =>
         {
-            points.Clear();
-            points.Add(evt.localPosition);
+            currentLine = new List<Vector2>();
+            currentLine.Add(evt.localPosition);
             isDrawing = true;
             MarkDirtyRepaint();
         });
@@ -21,33 +22,58 @@ public class SimpleLineDraw : VisualElement
         {
             if (isDrawing)
             {
-                points.Add(evt.localPosition);
+                currentLine.Add(evt.localPosition);
                 MarkDirtyRepaint();
             }
         });
 
         RegisterCallback<PointerUpEvent>(evt =>
         {
-            isDrawing = false;
+            if (isDrawing)
+            {
+                allLines.Add(currentLine);
+                isDrawing = false;
+            }
         });
 
         generateVisualContent += OnGenerateVisualContent;
         pickingMode = PickingMode.Position;
     }
 
+    public void ClearDrawing()
+    {
+        allLines.Clear();
+        currentLine.Clear();
+        isDrawing = false;
+        MarkDirtyRepaint();
+    }
+
     void OnGenerateVisualContent(MeshGenerationContext mgc)
     {
-        if (points.Count < 2) return;
-
         var painter = mgc.painter2D;
-        painter.strokeColor = Color.black;
-        painter.lineWidth = 2f;
-        painter.BeginPath();
-        painter.MoveTo(points[0]);
+        painter.strokeColor = Color.red;
+        painter.lineWidth = 5f;
 
-        for (int i = 1; i < points.Count; i++)
-            painter.LineTo(points[i]);
+         // Draw all completed lines
+        foreach (var line in allLines)
+        {
+            if (line.Count < 2) continue;
+            
+            painter.BeginPath();
+            painter.MoveTo(line[0]);
+            for (int i = 1; i < line.Count; i++)
+                painter.LineTo(line[i]);
+            painter.Stroke();
+        }
 
-        painter.Stroke();
+        // Draw current line being drawn
+        if (isDrawing && currentLine.Count >= 2)
+        {
+            painter.BeginPath();
+            painter.MoveTo(currentLine[0]);
+            for (int i = 1; i < currentLine.Count; i++)
+                painter.LineTo(currentLine[i]);
+            painter.Stroke();
+        }
     }
 }

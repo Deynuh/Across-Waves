@@ -15,9 +15,18 @@ public class DrawGameSetup : MonoBehaviour
         drawArea.style.left = 0;
         drawArea.style.right = 0;
         drawArea.style.bottom = 0;
+
+        // Create clear button
+        var clearButton = new Button(() => drawArea.ClearDrawing()) { text = "Clear" };
+        clearButton.style.position = Position.Absolute;
+        clearButton.style.top = 10;
+        clearButton.style.right = 10;
+        clearButton.style.width = 80;
+        clearButton.style.height = 30;
         
         // Add it to your UI
         root.Add(drawArea);
+        root.Add(clearButton);
     }
 
 }
