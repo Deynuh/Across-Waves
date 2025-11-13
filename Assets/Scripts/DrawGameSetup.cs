@@ -5,9 +5,24 @@ public class DrawGameSetup : MonoBehaviour
 {
     void Start()
     {
-        // Get your UI Document's root
-        var root = GetComponent<UIDocument>().rootVisualElement.Q("Canvas");
-        
+        // Get Canvas
+        var canvas = GetComponent<UIDocument>().rootVisualElement.Q("Canvas");
+
+        var titlePage = GetComponent<UIDocument>().rootVisualElement.Q("TitlePage");
+        var clearButton = canvas.Q<Button>("ClearDrawing");
+
+        // Hide title page on first click
+        bool firstClick = true;
+        canvas.RegisterCallback<PointerDownEvent>(evt =>
+        {
+            if (firstClick)
+            {
+                titlePage.style.display = DisplayStyle.None;
+                clearButton.style.display = DisplayStyle.Flex;
+                firstClick = false;
+            }
+        });
+
         // Create the drawing area
         var drawArea = new SimpleLineDraw();
         drawArea.style.position = Position.Absolute;
@@ -17,16 +32,11 @@ public class DrawGameSetup : MonoBehaviour
         drawArea.style.bottom = 0;
 
         // Create clear button
-        var clearButton = new Button(() => drawArea.ClearDrawing()) { text = "Clear" };
-        clearButton.style.position = Position.Absolute;
-        clearButton.style.top = 10;
-        clearButton.style.right = 10;
-        clearButton.style.width = 80;
-        clearButton.style.height = 30;
+        clearButton.clicked += () => drawArea.ClearDrawing();
         
         // Add it to your UI
-        root.Add(drawArea);
-        root.Add(clearButton);
+        canvas.Add(drawArea);
+        canvas.Add(clearButton);
     }
 
 }
