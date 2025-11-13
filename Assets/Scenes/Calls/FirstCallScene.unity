@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 817045503}
   - component: {fileID: 817045502}
   - component: {fileID: 817045504}
+  - component: {fileID: 817045505}
   m_Layer: 5
   m_Name: Dialogue
   m_TagString: Untagged
@@ -183,7 +184,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f57d9ce1a632417882d190a9e0d68de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lines: []
+  dialogueData: {fileID: 817045505}
+  startingNodeID: start
+--- !u!114 &817045505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 817045501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41d0eed8772294ceea22cbebcb189407, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodes:
+  - nodeID: start
+    dialogueText: Hi Umi!
+    choices: []
+    nextNodeID: eloFlight
+  - nodeID: eloFlight
+    dialogueText: I slept through my WHOLE flight, they couldn't even wake me up
+      to eat food. How are you doing, love?
+    choices:
+    - choiceText: I'm mostly alright, but I miss you a lot already..
+      targetNodeID: eloMiss
+    - choiceText: I'm fine...
+      targetNodeID: eloSilly
+    nextNodeID: 
+  - nodeID: eloMiss
+    dialogueText: Aw love... I miss you so much. I love that I can still see you
+      even if you're just pixels on my screen now though.
+    choices: []
+    nextNodeID: 
+  - nodeID: eloSilly
+    dialogueText: You're so silly, you still think I'd buy that?
+    choices: []
+    nextNodeID: 
 --- !u!1 &1096229714
 GameObject:
   m_ObjectHideFlags: 0
