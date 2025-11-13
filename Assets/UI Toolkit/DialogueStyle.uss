@@ -1,7 +1,7 @@
 .button {
     flex-wrap: wrap;
     flex-direction: row;
-    font-size: 24px;
+    font-size: 25px;
     background-color: rgb(255, 247, 247);
     border-left-color: rgb(157, 219, 243);
     border-right-color: rgb(157, 219, 243);

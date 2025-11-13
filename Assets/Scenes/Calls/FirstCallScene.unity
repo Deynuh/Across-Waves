@@ -207,9 +207,9 @@ MonoBehaviour:
     dialogueText: I slept through my WHOLE flight, they couldn't even wake me up
       to eat food. How are you doing, love?
     choices:
-    - choiceText: I'm mostly alright, but I miss you a lot already..
+    - choiceText: I'm mostly alright, but I miss you already...
       targetNodeID: eloMiss
-    - choiceText: I'm fine...
+    - choiceText: I'm fine
       targetNodeID: eloSilly
     nextNodeID: 
   - nodeID: eloMiss
