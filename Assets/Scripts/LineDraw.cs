@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using System.Collections.Generic;
 
-public class SimpleLineDraw : VisualElement
+public class LineDraw : VisualElement
 {
     List<List<Vector2>> allLines = new List<List<Vector2>>();
     List<Vector2> currentLine = new List<Vector2>();
@@ -11,12 +11,11 @@ public class SimpleLineDraw : VisualElement
     // NPC stuff
     List<Vector2> npcCompleteLines = new List<Vector2>();
     List<Vector2> npcCurrentLines = new List<Vector2>();
-    bool npcIsDrawing = false;
 
     // bear drawing template guide!
-    List<Vector2> templateLines = new List<Vector2>();
+    List<List<Vector2>> allTemplateLines = new List<List<Vector2>>();
 
-    public SimpleLineDraw()
+    public LineDraw()
     {
         RegisterCallback<PointerDownEvent>(evt =>
         {
@@ -48,20 +47,19 @@ public class SimpleLineDraw : VisualElement
         pickingMode = PickingMode.Position;
     }
 
-    public void SetTemplate(List<Vector2> template)
+    public void AddTemplate(List<Vector2> template)
     {
-        templateLines = template;
+        allTemplateLines.Add(template);
         MarkDirtyRepaint();
     }
-
+    
     public void StartNPCDrawing (List<Vector2> linesToDraw, System.Action onComplete = null)
     {
         npcCompleteLines = linesToDraw;
         npcCurrentLines.Clear();
-        npcIsDrawing = true;
 
         // start coroutine
-        var coroutineRunner = GameObject.FindObjectOfType<DrawGameSetup>();
+        var coroutineRunner = GameObject.FindFirstObjectByType<DrawGameSetup>();
         coroutineRunner.StartCoroutine(AnimateNPCDrawing(onComplete));
     }
 
@@ -72,24 +70,38 @@ public class SimpleLineDraw : VisualElement
 
         while (currentPointIndex < npcCompleteLines.Count)
         {
-            //add next point
-            npcCurrentLines.Add(npcCompleteLines[currentPointIndex]);
+            Vector2 currentPoint = npcCompleteLines[currentPointIndex];
+
+            // Check if this is a line break marker
+            if (float.IsNaN(currentPoint.x))
+            {
+                // Add the line break marker to the current drawing
+                npcCurrentLines.Add(currentPoint);
+                currentPointIndex++;
+                MarkDirtyRepaint();
+                continue;
+            }
+
+            // Add the actual drawing point
+            npcCurrentLines.Add(currentPoint);
             currentPointIndex++;
 
             MarkDirtyRepaint();
 
-            //wait based on distance to next point
+            // Wait based on distance to next point (only if next point exists and isn't a line break)
             if (currentPointIndex < npcCompleteLines.Count)
             {
-                float distance = Vector2.Distance(
-                    npcCompleteLines[currentPointIndex - 1], 
-                    npcCompleteLines[currentPointIndex]
-                );
-                yield return new WaitForSeconds(distance / drawSpeed);
+                Vector2 nextPoint = npcCompleteLines[currentPointIndex];
+
+                // Only calculate wait time if next point is not a line break
+                if (!float.IsNaN(nextPoint.x))
+                {
+                    float distance = Vector2.Distance(currentPoint, nextPoint);
+                    yield return new WaitForSeconds(distance / drawSpeed);
+                }
             }
         }
 
-        npcIsDrawing = false;
         onComplete?.Invoke();
     }
 
@@ -106,40 +118,79 @@ public class SimpleLineDraw : VisualElement
         
         Debug.Log("Drawing cleared and repaint marked!");
     }
+    
+    public void Undo()
+    {
+        if (allLines.Count > 0)
+        {
+            allLines.RemoveAt(allLines.Count - 1);
+            MarkDirtyRepaint(); // Refresh the visual
+        }
+    }
 
     void OnGenerateVisualContent(MeshGenerationContext mgc)
     {
         var painter = mgc.painter2D;
-
-        // Draw template (very light, transparent guide)
-        if (templateLines.Count > 1)
+        
+        // Draw all template parts (very light, transparent guide)
+        foreach (var templateLine in allTemplateLines)
         {
-            painter.strokeColor = new Color(0.5f, 0.5f, 0.5f, 0.5f); // Light gray, transparent
-            painter.lineWidth = 5f;
-            painter.BeginPath();
-            painter.MoveTo(templateLines[0]);
-            for (int i = 1; i < templateLines.Count; i++)
-                painter.LineTo(templateLines[i]);
-            painter.Stroke();
+            if (templateLine.Count > 1)
+            {
+                painter.strokeColor = new Color(0.5f, 0.5f, 0.5f, 0.5f);
+                painter.lineWidth = 5f;
+                painter.BeginPath();
+                painter.MoveTo(templateLine[0]);
+                for (int i = 1; i < templateLine.Count; i++)
+                    painter.LineTo(templateLine[i]);
+                painter.Stroke();
+            }
         }
 
-        // Draw NPC's animated drawing (blue)
-        if (npcCurrentLines.Count > 1)
+        // Draw NPC's animated drawing (blue) - handle line breaks properly
+        if (npcCurrentLines.Count > 0)
         {
             painter.strokeColor = Color.blue;
             painter.lineWidth = 5f;
-            painter.BeginPath();
-            painter.MoveTo(npcCurrentLines[0]);
-            for (int i = 1; i < npcCurrentLines.Count; i++)
-                painter.LineTo(npcCurrentLines[i]);
-            painter.Stroke();
+            
+            var currentSegment = new List<Vector2>();
+            
+            foreach (var point in npcCurrentLines)
+            {
+                if (float.IsNaN(point.x)) // Line break marker
+                {
+                    // Draw current segment if it has points
+                    if (currentSegment.Count > 1)
+                    {
+                        painter.BeginPath();
+                        painter.MoveTo(currentSegment[0]);
+                        for (int i = 1; i < currentSegment.Count; i++)
+                            painter.LineTo(currentSegment[i]);
+                        painter.Stroke();
+                    }
+                    currentSegment.Clear(); // Start new segment
+                }
+                else
+                {
+                    currentSegment.Add(point); // Add to current segment
+                }
+            }
+            
+            // Draw the final segment
+            if (currentSegment.Count > 1)
+            {
+                painter.BeginPath();
+                painter.MoveTo(currentSegment[0]);
+                for (int i = 1; i < currentSegment.Count; i++)
+                    painter.LineTo(currentSegment[i]);
+                painter.Stroke();
+            }
         }
 
-        // player's drawing lines
+        // player's drawing lines (unchanged)
         painter.strokeColor = Color.red;
         painter.lineWidth = 5f;
 
-         // draw all completed lines
         foreach (var line in allLines)
         {
             if (line.Count < 2) continue;
@@ -151,7 +202,6 @@ public class SimpleLineDraw : VisualElement
             painter.Stroke();
         }
 
-        // Draw current line being drawn
         if (isDrawing && currentLine.Count >= 2)
         {
             painter.BeginPath();
@@ -161,4 +211,5 @@ public class SimpleLineDraw : VisualElement
             painter.Stroke();
         }
     }
+
 }

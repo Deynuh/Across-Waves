@@ -5,7 +5,10 @@ using System.Collections.Generic;
 public class DrawGameSetup : MonoBehaviour
 {
     private VisualElement canvas;
-
+    private const float canvasWidth = 1350f;
+    private const float canvasHeight = 800f;
+    private Vector2 center = new Vector2(canvasWidth/2f, canvasHeight/2f);
+    private float radius = canvasWidth/5f;
     void Start()
     {
         // Get Canvas
@@ -15,16 +18,12 @@ public class DrawGameSetup : MonoBehaviour
         var clearButton = canvas.Q<Button>("ClearDrawing");
 
         // Create the drawing area first
-        var drawArea = new SimpleLineDraw();
+        var drawArea = new LineDraw();
         drawArea.style.position = Position.Absolute;
-        drawArea.style.top = 30;
+        drawArea.style.top = 60;
         drawArea.style.left = 0;
         drawArea.style.right = 0;
         drawArea.style.bottom = 0;
-
-        // set up bear template
-        var teddyBearTemplate = CreateTeddyBearTemplate();
-        drawArea.SetTemplate(teddyBearTemplate);
 
         // Hide title page on first click
         bool firstClick = true;
@@ -34,13 +33,24 @@ public class DrawGameSetup : MonoBehaviour
             {
                 titlePage.style.display = DisplayStyle.None;
                 clearButton.style.display = DisplayStyle.Flex;
-                firstClick = false;
+                
+                // set up bear template
+                var bearTemplate = new BearTemplate(center, radius);
+                var allTemplates = bearTemplate.CreateAllTemplates();
+    
+                foreach (var template in allTemplates)
+                {
+                    drawArea.AddTemplate(template);
+                }
+
                 // start npc drawing
-                var npcHeadDrawing = CreateNPCHeadDrawing();
-                drawArea.StartNPCDrawing(npcHeadDrawing, () =>
+                var npcDrawing = CreateNPCDrawing(allTemplates);
+                drawArea.StartNPCDrawing(npcDrawing, () =>
                 {
                     Debug.Log("NPC finished!");
                 });
+                
+                firstClick = false;
             }        
         });
 
@@ -50,127 +60,61 @@ public class DrawGameSetup : MonoBehaviour
             drawArea.ClearDrawing();
         };
 
-        // Add it to your UI
+        // Add it to UI
         canvas.Add(drawArea);
     }
-
-
-    List<Vector2> CreateTeddyBearTemplate()
+    
+    void Update()
     {
-        var template = new List<Vector2>();
-
-        float canvasWidth = 1350f;
-        float canvasHeight = 850f;
-
-        Vector2 center = new Vector2(canvasWidth/2f, canvasHeight/2f);
-        float radius = canvasWidth/5f; // Head radius
-        
-        // Head circle
-        for (int i = 0; i <= 32; i++)
+        // Ctrl+Z undo functionality
+        if (Input.GetKeyDown(KeyCode.Z) && Input.GetKey(KeyCode.LeftControl))
         {
-            float angle = i * 2f * Mathf.PI / 32f;
-            Vector2 point = center + new Vector2(
-                Mathf.Cos(angle) * radius,
-                Mathf.Sin(angle) * radius
-            );
-            template.Add(point);
+            var drawArea = canvas.Q<LineDraw>();
+            if (drawArea != null)
+            {
+                drawArea.Undo();
+            }
         }
-        
-        // Left ear (scale with head)
-        float earRadius = radius * 0.4f; // 40% of head size
-        Vector2 leftEarCenter = center + new Vector2(-radius * 0.7f, -radius * 0.8f);
-        for (int i = 0; i <= 16; i++)
-        {
-            float angle = i * 2f * Mathf.PI / 16f;
-            Vector2 point = leftEarCenter + new Vector2(
-                Mathf.Cos(angle) * earRadius,
-                Mathf.Sin(angle) * earRadius
-            );
-            template.Add(point);
-        }
-        
-        // Right ear
-        Vector2 rightEarCenter = center + new Vector2(radius * 0.7f, -radius * 0.8f);
-        for (int i = 0; i <= 16; i++)
-        {
-            float angle = i * 2f * Mathf.PI / 16f;
-            Vector2 point = rightEarCenter + new Vector2(
-                Mathf.Cos(angle) * earRadius,
-                Mathf.Sin(angle) * earRadius
-            );
-            template.Add(point);
-        }
-        
-        // Left eye (scale with head)
-        float eyeSize = radius * 0.15f; // 15% of head radius
-        Vector2 leftEyeCenter = center + new Vector2(-radius * 0.3f, -radius * 0.2f);
-        for (int i = 0; i <= 8; i++)
-        {
-            float angle = i * 2f * Mathf.PI / 8f;
-            Vector2 point = leftEyeCenter + new Vector2(
-                Mathf.Cos(angle) * eyeSize,
-                Mathf.Sin(angle) * eyeSize
-            );
-            template.Add(point);
-        }
-        
-        // Right eye
-        Vector2 rightEyeCenter = center + new Vector2(radius * 0.3f, -radius * 0.2f);
-        for (int i = 0; i <= 8; i++)
-        {
-            float angle = i * 2f * Mathf.PI / 8f;
-            Vector2 point = rightEyeCenter + new Vector2(
-                Mathf.Cos(angle) * eyeSize,
-                Mathf.Sin(angle) * eyeSize
-            );
-            template.Add(point);
-        }
-        
-        // Nose (triangle, scaled with head)
-        float noseSize = radius * 0.08f; // 8% of head radius
-        Vector2 noseTop = center + new Vector2(0, radius * 0.1f);
-        Vector2 noseLeft = center + new Vector2(-noseSize, radius * 0.25f);
-        Vector2 noseRight = center + new Vector2(noseSize, radius * 0.25f);
-        
-        template.Add(noseTop);
-        template.Add(noseLeft);
-        template.Add(noseRight);
-        template.Add(noseTop); // Close triangle
-        
-        // Mouth (simple smile curve)
-        Vector2 mouthLeft = center + new Vector2(-radius * 0.15f, radius * 0.35f);
-        Vector2 mouthCenter = center + new Vector2(0, radius * 0.45f);
-        Vector2 mouthRight = center + new Vector2(radius * 0.15f, radius * 0.35f);
-        
-        template.Add(mouthLeft);
-        template.Add(mouthCenter);
-        template.Add(mouthRight);
-        
-        return template;
     }
-
-    List<Vector2> CreateNPCHeadDrawing()
+    
+    List<Vector2> CreateNPCDrawing(List<List<Vector2>> allTemplates)
     {
         var npcLines = new List<Vector2>();
-        
-        // Use same centering as template
-        float canvasWidth = 1350f;
-        float canvasHeight = 850f;
-        
-        Vector2 center = new Vector2(canvasWidth / 2f, canvasHeight / 2f);
-        float radius = canvasWidth/5f;
-        
-        // Only the head circle - NPC draws this part
-        for (int i = 0; i <= 32; i++)
+
+        for (int i = 0; i < allTemplates.Count; i++)
         {
-            float angle = i * 2f * Mathf.PI / 32f;
-            Vector2 point = center + new Vector2(
-                Mathf.Cos(angle) * radius,
-                Mathf.Sin(angle) * radius
-            );
-            npcLines.Add(point);
+            var template = allTemplates[i];
+
+            if (i == 0) // Head - include left half only
+            {
+                var leftHalfPoints = new List<Vector2>();
+                foreach (var point in template)
+                {
+                    if (point.x <= center.x + (radius * 0.1f))
+                    {
+                        leftHalfPoints.Add(point);
+                    }
+                }
+                if (leftHalfPoints.Count > 0)
+                {
+                    npcLines.AddRange(leftHalfPoints);
+                    npcLines.Add(new Vector2(float.NaN, float.NaN));
+                }
+            }
+            else if (i == 1 || i == 3 || i == 5) // Left ear (1), Left eye (3), Nose (5) - include completely
+            {
+                npcLines.AddRange(template);
+                npcLines.Add(new Vector2(float.NaN, float.NaN));
+            }
+            // Skip: Right ear (2), Right eye (4), Mouth (6)
         }
-        
+
+        // Remove the last line break if it exists
+        if (npcLines.Count > 0 && float.IsNaN(npcLines[npcLines.Count - 1].x))
+        {
+            npcLines.RemoveAt(npcLines.Count - 1);
+        }
+
         return npcLines;
     }
 
