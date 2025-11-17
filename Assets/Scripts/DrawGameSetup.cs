@@ -16,6 +16,7 @@ public class DrawGameSetup : MonoBehaviour
 
         var titlePage = GetComponent<UIDocument>().rootVisualElement.Q("TitlePage");
         var clearButton = canvas.Q<Button>("ClearDrawing");
+        var info = canvas.Q<Label>("Info");
 
         // Create the drawing area first
         var drawArea = new LineDraw();
@@ -33,6 +34,7 @@ public class DrawGameSetup : MonoBehaviour
             {
                 titlePage.style.display = DisplayStyle.None;
                 clearButton.style.display = DisplayStyle.Flex;
+                info.style.display = DisplayStyle.Flex;
                 
                 // set up bear template
                 var bearTemplate = new BearTemplate(center, radius);

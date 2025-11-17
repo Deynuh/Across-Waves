@@ -5,6 +5,7 @@
         </ui:VisualElement>
         <ui:VisualElement name="Canvas" style="flex-grow: 1; position: absolute; top: 0; left: 0; right: 0; bottom: 0;">
             <ui:Button text="Clear Your Drawing" name="ClearDrawing" style="top: 0; right: 0; flex-direction: row; flex-wrap: wrap; position: absolute; background-color: rgb(176, 90, 84); color: rgb(255, 255, 255); -unity-font-style: bold; border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; border-left-color: rgb(91, 63, 63); border-right-color: rgb(91, 63, 63); border-top-color: rgb(91, 63, 63); border-bottom-color: rgb(91, 63, 63); display: none;" />
+            <ui:Label text="Ctrl + z to Undo" name="Info" style="bottom: 0; left: 5px; position: absolute; font-size: 20px; -unity-font-definition: url(&quot;project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&amp;guid=002463c501ba2b34b95ab33133eba34a&amp;type=3#NotInter-Regular&quot;); -unity-font-style: normal; color: rgb(58, 23, 7); display: none;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

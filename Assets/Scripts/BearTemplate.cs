@@ -40,7 +40,6 @@ public class BearTemplate {
         }
         return head;
     }
-
     
     List<Vector2> CreateLeftEarTemplate()
     {
@@ -59,7 +58,6 @@ public class BearTemplate {
             );
             leftEar.Add(point);
         }
-
         return leftEar;
     }
     
@@ -80,7 +78,6 @@ public class BearTemplate {
             );
             rightEar.Add(point);
         }
-
         return rightEar;
     }
     
@@ -100,7 +97,6 @@ public class BearTemplate {
             );
             leftEye.Add(point);
         }
-
         return leftEye;
     }
 
@@ -120,7 +116,6 @@ public class BearTemplate {
             );
             rightEye.Add(point);
         }
-
         return rightEye;
     }
     
@@ -140,7 +135,6 @@ public class BearTemplate {
             );
             nose.Add(point);
         }
-
         return nose;
     }
 
@@ -162,7 +156,6 @@ public class BearTemplate {
             );
             mouth.Add(point);
         }
-
         return mouth;
     }
 }
