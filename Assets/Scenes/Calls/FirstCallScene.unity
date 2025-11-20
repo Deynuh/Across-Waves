@@ -344,11 +344,96 @@ MonoBehaviour:
   - nodeID: eloMiss
     dialogueText: Aw love... I miss you so much. I love that I can still see you
       even if you're just pixels on my screen now though.
-    choices: []
+    choices:
+    - choiceText: Me too... Still, I'd rather see you for real.
+      targetNodeID: eloTimeFly
+    - choiceText: I wanna jump through my screen!!
+      targetNodeID: eloCatch
     nextNodeID: 
   - nodeID: eloSilly
     dialogueText: You're so silly, you still think I'd buy that?
+    choices:
+    - choiceText: ...okay, I'm a little sad.
+      targetNodeID: eloTimeFly
+    - choiceText: I am though!
+      targetNodeID: eloSure
+    nextNodeID: 
+  - nodeID: eloTimeFly
+    dialogueText: Me too, love... me too. Time will fly by so fast though, you'll
+      see!
+    choices:
+    - choiceText: It will.. I can't wait.
+      targetNodeID: eloTryGame
+    - choiceText: Maybe we could learn how to time travel?
+      targetNodeID: eloLetsDoThat
+    nextNodeID: 
+  - nodeID: eloCatch
+    dialogueText: Hahaha, then I'd catch you!
+    choices:
+    - choiceText: Alright, get ready then!!
+      targetNodeID: eloAlwaysReady
+    - choiceText: Promise to do that when we're back together?
+      targetNodeID: eloPromise
+    nextNodeID: 
+  - nodeID: eloLetsDoThat
+    dialogueText: Haha, let's do that. In the meantime, do you wanna do something
+      together?
+    choices:
+    - choiceText: Yes!
+      targetNodeID: eloTryGame
+    - choiceText: Nahhh
+      targetNodeID: eloVeryFunny
+    nextNodeID: 
+  - nodeID: eloTryGame
+    dialogueText: Oh hey, let's try that drawing game we found! I'll start it up,
+      wait for my invite!
     choices: []
+    nextNodeID: 
+  - nodeID: eloVeryFunny
+    dialogueText: Veeery funny, too bad, we're gonna play a game!
+    choices:
+    - choiceText: Hahaha fine!
+      targetNodeID: eloTryGame
+    - choiceText: Alrighttt
+      targetNodeID: eloTryGame
+    nextNodeID: 
+  - nodeID: eloAlwaysReady
+    dialogueText: I'm always ready!!
+    choices:
+    - choiceText: I wish it really was that easy...
+      targetNodeID: eloIKnow
+    - choiceText: Hahaha, I believe you.
+      targetNodeID: eloOfCourse
+    nextNodeID: 
+  - nodeID: eloPromise
+    dialogueText: I promise, love. Do you wanna do something together right now?
+    choices:
+    - choiceText: Yes!
+      targetNodeID: eloTryGame
+    - choiceText: Nahhh
+      targetNodeID: eloVeryFunny
+    nextNodeID: 
+  - nodeID: eloIKnow
+    dialogueText: I know, me too... Hey, let's do something together!
+    choices:
+    - choiceText: Yes!
+      targetNodeID: eloTryGame
+    - choiceText: Nahhh
+      targetNodeID: eloVeryFunny
+    nextNodeID: eloTryGame
+  - nodeID: eloOfCourse
+    dialogueText: Of course, you know I've got your back! Hey, let's go do something
+      right now!
+    choices: []
+    nextNodeID: eloTryGame
+  - nodeID: eloSure
+    dialogueText: Uh-huh sure, sure you are. Don't forget you can talk to me whenever,
+      alright?
+    choices:
+    - choiceText: I know, love.. thank you.
+      targetNodeID: eloTryGame
+    - choiceText: I will.. let's talk about something else for now though
+      targetNodeID: eloTryGame
     nextNodeID: 
 --- !u!1 &1096229714
 GameObject:

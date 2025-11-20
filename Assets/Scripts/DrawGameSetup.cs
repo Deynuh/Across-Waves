@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class DrawGameSetup : MonoBehaviour
 {
     private VisualElement canvas;
+    private LineDraw drawArea;
     private const float canvasWidth = 1350f;
     private const float canvasHeight = 800f;
     private Vector2 center = new Vector2(canvasWidth/2f, canvasHeight/2f);
@@ -19,7 +20,7 @@ public class DrawGameSetup : MonoBehaviour
         var info = canvas.Q<Label>("Info");
 
         // Create the drawing area first
-        var drawArea = new LineDraw();
+        drawArea = new LineDraw();
         drawArea.style.position = Position.Absolute;
         drawArea.style.top = 60;
         drawArea.style.left = 0;
@@ -71,7 +72,6 @@ public class DrawGameSetup : MonoBehaviour
         // Ctrl+Z undo functionality
         if (Input.GetKeyDown(KeyCode.Z) && Input.GetKey(KeyCode.LeftControl))
         {
-            var drawArea = canvas.Q<LineDraw>();
             if (drawArea != null)
             {
                 drawArea.Undo();
