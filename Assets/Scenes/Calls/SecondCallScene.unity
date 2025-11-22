@@ -248,6 +248,114 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   countdownNum: 75
+--- !u!1 &1211660250
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1211660254}
+  - component: {fileID: 1211660253}
+  - component: {fileID: 1211660252}
+  - component: {fileID: 1211660251}
+  m_Layer: 5
+  m_Name: Dialogue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1211660251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1211660250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41d0eed8772294ceea22cbebcb189407, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodes:
+  - nodeID: start
+    dialogueText: Hey, love!!
+    choices: []
+    nextNodeID: eloCanYouHearMe
+  - nodeID: eloCanYouHearMe
+    dialogueText: Umi? Can you hear me?
+    choices:
+    - choiceText: Yeah, but you're cutting out
+      targetNodeID: eloWhaSay
+    - choiceText: Not really
+      targetNodeID: eloNotWhat
+    nextNodeID: 
+  - nodeID: eloWhaSay
+    dialogueText: Wha...say?
+    choices: []
+    nextNodeID: eloWorksNow
+  - nodeID: eloNotWhat
+    dialogueText: Not...what?
+    choices: []
+    nextNodeID: eloWorksNow
+  - nodeID: eloWorksNow
+    dialogueText: Oh! I think it works no-
+    choices: []
+    nextNodeID: eloHello
+  - nodeID: eloHello
+    dialogueText: Hello? Can-
+    choices: []
+    nextNodeID: 
+--- !u!114 &1211660252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1211660250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f57d9ce1a632417882d190a9e0d68de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueData: {fileID: 1211660251}
+  startingNodeID: start
+--- !u!114 &1211660253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1211660250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: 31f95fbc5e5c76b43abb83de131495d8, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: e3c3578aaa3b7c94d8465e363ff2a435, type: 3}
+  m_SortingOrder: 1
+  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceWidth: 1920
+  m_WorldSpaceHeight: 1080
+--- !u!4 &1211660254
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1211660250}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1934493084
 GameObject:
   m_ObjectHideFlags: 0
@@ -347,3 +455,4 @@ SceneRoots:
   - {fileID: 1934493087}
   - {fileID: 1180194164}
   - {fileID: 94979998}
+  - {fileID: 1211660254}
