@@ -119,6 +119,166 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &623363153
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 623363157}
+  - component: {fileID: 623363156}
+  - component: {fileID: 623363155}
+  - component: {fileID: 623363154}
+  m_Layer: 5
+  m_Name: Dialogue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &623363154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 623363153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41d0eed8772294ceea22cbebcb189407, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodes:
+  - nodeID: start
+    dialogueText: Hi.
+    choices: []
+    nextNodeID: eloSo
+  - nodeID: eloSo
+    dialogueText: ...So.
+    choices:
+    - choiceText: Yeah?
+      targetNodeID: eloYouLookTired
+    - choiceText: What.
+      targetNodeID: eloNothing
+    nextNodeID: 
+  - nodeID: eloYouLookTired
+    dialogueText: You look tired.
+    choices:
+    - choiceText: I'm fine.
+      targetNodeID: eloSure
+    - choiceText: Yeah, you do too.
+      targetNodeID: eloYeah
+    nextNodeID: 
+  - nodeID: eloNothing
+    dialogueText: Nothing. Whatever.
+    choices:
+    - choiceText: Okay.
+      targetNodeID: eloBye
+    - choiceText: I don't really feel like talking now.
+      targetNodeID: eloSame
+    nextNodeID: 
+  - nodeID: eloBye
+    dialogueText: Ok. Bye then.
+    choices:
+    - choiceText: Bye.
+      targetNodeID: 
+    - choiceText: Mhm.
+      targetNodeID: 
+    nextNodeID: 
+  - nodeID: eloSame
+    dialogueText: Yeah, same. Let's talk later then.
+    choices:
+    - choiceText: Yeah.. Bye.
+      targetNodeID: 
+    - choiceText: Sounds good. Bye.
+      targetNodeID: 
+    nextNodeID: 
+  - nodeID: eloSure
+    dialogueText: ...Sure. Let's talk later?
+    choices:
+    - choiceText: Whatever.
+      targetNodeID: eloOkayThen
+    - choiceText: Okay.
+      targetNodeID: eloILoveYou
+    nextNodeID: 
+  - nodeID: eloYeah
+    dialogueText: Yeah. I should get back to what I was doing.
+    choices:
+    - choiceText: Okay.
+      targetNodeID: eloILoveYou
+    - choiceText: Right.
+      targetNodeID: eloILoveYou
+    nextNodeID: 
+  - nodeID: eloOkayThen
+    dialogueText: Okay then.
+    choices:
+    - choiceText: Okay.
+      targetNodeID: eloBye
+    - choiceText: Bye.
+      targetNodeID: eloBye
+    nextNodeID: 
+  - nodeID: eloBye
+    dialogueText: Bye.
+    choices: []
+    nextNodeID: 
+  - nodeID: eloILoveYou
+    dialogueText: I love you.
+    choices:
+    - choiceText: I love you too. Bye.
+      targetNodeID: 
+    - choiceText: Yeah, bye.
+      targetNodeID: 
+    nextNodeID: 
+--- !u!114 &623363155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 623363153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f57d9ce1a632417882d190a9e0d68de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueData: {fileID: 623363154}
+  startingNodeID: start
+--- !u!114 &623363156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 623363153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: 31f95fbc5e5c76b43abb83de131495d8, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: e3c3578aaa3b7c94d8465e363ff2a435, type: 3}
+  m_SortingOrder: 1
+  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceWidth: 1920
+  m_WorldSpaceHeight: 1080
+--- !u!4 &623363157
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 623363153}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1168093058
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,3 +442,4 @@ SceneRoots:
   m_Roots:
   - {fileID: 1934493087}
   - {fileID: 1168093060}
+  - {fileID: 623363157}
