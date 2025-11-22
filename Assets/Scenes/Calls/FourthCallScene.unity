@@ -211,6 +211,289 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1631527410
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1631527414}
+  - component: {fileID: 1631527413}
+  - component: {fileID: 1631527412}
+  - component: {fileID: 1631527411}
+  m_Layer: 5
+  m_Name: Dialogue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1631527411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631527410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41d0eed8772294ceea22cbebcb189407, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodes:
+  - nodeID: start
+    dialogueText: Hi...
+    choices: []
+    nextNodeID: eloIMissYou
+  - nodeID: eloIMissYou
+    dialogueText: I miss you..
+    choices:
+    - choiceText: I miss you too..
+      targetNodeID: eloIDidnt
+    - choiceText: Me too, but you're back so soon!
+      targetNodeID: eloThatsTrue
+    nextNodeID: 
+  - nodeID: eloIDidnt
+    dialogueText: I didn't really have anything to say.. I just wanted to see your
+      face.
+    choices:
+    - choiceText: I love seeing your face too.
+      targetNodeID: eloIWish
+    - choiceText: Are you okay?
+      targetNodeID: eloYeah
+    nextNodeID: 
+  - nodeID: eloIWish
+    dialogueText: I wish I could hug you right now.
+    choices:
+    - choiceText: I get you. I feel the same way..
+      targetNodeID: eloAreYou
+    - choiceText: Aw, don't worry there's only 25 more days left!
+      targetNodeID: eloYoureRight
+    nextNodeID: 
+  - nodeID: eloAreYou
+    dialogueText: Are you doing okay?
+    choices:
+    - choiceText: I'm alright
+      targetNodeID: eloImGlad
+    - choiceText: Not really. But I'm hanging in there.
+      targetNodeID: eloWellBe
+    nextNodeID: 
+  - nodeID: eloImGlad
+    dialogueText: I'm glad.. I feel so silly..
+    choices:
+    - choiceText: You're not. I miss you a lot too.
+      targetNodeID: eloYouThink
+    - choiceText: Haha, my silly Elo
+      targetNodeID: eloIShould
+    nextNodeID: 
+  - nodeID: eloWellBe
+    dialogueText: We'll be together again soon.. right?
+    choices:
+    - choiceText: We will, love.
+      targetNodeID: eloYouThink
+    - choiceText: Yeah.. it still feels so far though.
+      targetNodeID: eloYouThink
+    nextNodeID: 
+  - nodeID: eloYoureRight
+    dialogueText: You're right. I feel so silly.
+    choices:
+    - choiceText: You're not. I miss you a lot too.
+      targetNodeID: eloYouThink
+    - choiceText: Haha, my silly Elo.
+      targetNodeID: eloIShould
+    nextNodeID: 
+  - nodeID: eloThatsTrue
+    dialogueText: That's true.. I can't wait love.
+    choices:
+    - choiceText: Are you okay?
+      targetNodeID: eloYeah
+    - choiceText: Me too.. How're you doing?
+      targetNodeID: eloItsBeen
+    nextNodeID: 
+  - nodeID: eloYeah
+    dialogueText: Yeah.. I just really miss you right now.
+    choices:
+    - choiceText: I get you. I feel the same way..
+      targetNodeID: eloAreYou
+    - choiceText: Aw don't worry, there's only 25 more days to go!
+      targetNodeID: eloYoureRight
+    nextNodeID: 
+  - nodeID: eloYouThink
+    dialogueText: You think these long distance months will ever get easier?
+    choices:
+    - choiceText: No.. but they're worth it for you.
+      targetNodeID: eloYoureSo
+    - choiceText: Maybe, love. I hope so.
+      targetNodeID: eloIHope
+    nextNodeID: 
+  - nodeID: eloYoureSo
+    dialogueText: You're so sweet.. I feel the same.
+    choices:
+    - choiceText: You should get some sleep. We'll call tomorrow!
+      targetNodeID: eloYoullBe
+    - choiceText: I know, love. You wanna call more tomorrow?
+      targetNodeID: eloYoullBe
+    nextNodeID: 
+  - nodeID: eloYoullBe
+    dialogueText: You'll be right here?
+    choices:
+    - choiceText: I will.
+      targetNodeID: eloThanksLove
+    - choiceText: I'll haunt your dreams actually.
+      targetNodeID: eloHahaha
+    nextNodeID: 
+  - nodeID: eloThanksLove
+    dialogueText: Thanks, love. I love you, good night!!
+    choices:
+    - choiceText: I love you too, good night!
+      targetNodeID: 
+    - choiceText: I love you most, good night!
+      targetNodeID: 
+    nextNodeID: 
+  - nodeID: eloHahaha
+    dialogueText: Hahaha, can't wait. I love you, good night!
+    choices:
+    - choiceText: I love you too, good night!
+      targetNodeID: 
+    - choiceText: I love you most, good night!
+      targetNodeID: 
+    nextNodeID: 
+  - nodeID: eloIHope
+    dialogueText: I hope so too. I should really sleep now..
+    choices:
+    - choiceText: You should, love. Let's call tomorrow.
+      targetNodeID: eloYoullBe
+    - choiceText: No, let's keep talking!
+      targetNodeID: eloHahaYou
+    nextNodeID: 
+  - nodeID: eloHahaYou
+    dialogueText: Haha, you always wanna talk right when I'm about to sleep.
+    choices:
+    - choiceText: Hehe, admit you love it!
+      targetNodeID: eloYesYes
+    - choiceText: Yeah, I need to tell you about this one day in fifth grade!
+      targetNodeID: eloGoodniiight
+    nextNodeID: 
+  - nodeID: eloYesYes
+    dialogueText: Yes, yes. I do. I love you, good night!
+    choices:
+    - choiceText: I love you too, good night!
+      targetNodeID: 
+    - choiceText: I love you most, good night!
+      targetNodeID: 
+    nextNodeID: 
+  - nodeID: eloGoodniiight
+    dialogueText: Goodniiight love! I'll call you tomorrow, haha.
+    choices:
+    - choiceText: Hehe, good night, I love you!
+      targetNodeID: eloGoodnight
+    - choiceText: Noooo!
+      targetNodeID: eloIPromise
+    nextNodeID: 
+  - nodeID: eloIPromise
+    dialogueText: I promise you we will talk LOTS tomorrow!
+    choices:
+    - choiceText: Fiiine, I love you!
+      targetNodeID: eloGoodnight
+    - choiceText: Yay! I love you, good night!
+      targetNodeID: eloGoodnight
+    nextNodeID: 
+  - nodeID: eloGoodnight
+    dialogueText: Goodnight, I love you too.
+    choices: []
+    nextNodeID: 
+  - nodeID: eloIShould
+    dialogueText: I should really go sleep.. can we call again tomorrow?
+    choices:
+    - choiceText: Of course!
+      targetNodeID: eloGreat
+    - choiceText: Nah
+      targetNodeID: eloHah
+    nextNodeID: 
+  - nodeID: eloGreat
+    dialogueText: Great.. I love you so much.
+    choices:
+    - choiceText: I love you so much too. I'll be right here, okay?
+      targetNodeID: eloIKnow
+    - choiceText: I love you so much too. I'm always here for you.
+      targetNodeID: eloIKnow
+    nextNodeID: 
+  - nodeID: eloHah
+    dialogueText: Hahaha, I hate you!
+    choices:
+    - choiceText: I love you too, hehe!
+      targetNodeID: eloOkay
+    - choiceText: '*kissy face*'
+      targetNodeID: eloOkay
+    nextNodeID: 
+  - nodeID: eloOkay
+    dialogueText: Okay, I actually do need to go sleep now. Thanks for trying to
+      cheer me up, love.
+    choices:
+    - choiceText: Of course. You know I always got you. I love you!
+      targetNodeID: eloGoodnight
+    - choiceText: You're still so silly. Good night! I love you.
+      targetNodeID: eloGoodnight
+    nextNodeID: 
+  - nodeID: eloItsBeen
+    dialogueText: It's been hitting harder lately.. I've been missing you so much
+      more.
+    choices:
+    - choiceText: I get you.. I feel the same way.
+      targetNodeID: eloAreYou
+    - choiceText: Aw don't wory, there's only 25 more days to go!
+      targetNodeID: eloYoureRight
+    nextNodeID: 
+--- !u!114 &1631527412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631527410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f57d9ce1a632417882d190a9e0d68de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueData: {fileID: 1631527411}
+  startingNodeID: start
+--- !u!114 &1631527413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631527410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: 31f95fbc5e5c76b43abb83de131495d8, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: e3c3578aaa3b7c94d8465e363ff2a435, type: 3}
+  m_SortingOrder: 1
+  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceWidth: 1920
+  m_WorldSpaceHeight: 1080
+--- !u!4 &1631527414
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631527410}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2022510944
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,3 +565,4 @@ SceneRoots:
   m_Roots:
   - {fileID: 178980845}
   - {fileID: 2022510947}
+  - {fileID: 1631527414}
