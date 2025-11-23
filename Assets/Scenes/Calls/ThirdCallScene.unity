@@ -119,6 +119,71 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &96260391
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 96260394}
+  - component: {fileID: 96260393}
+  - component: {fileID: 96260392}
+  m_Layer: 5
+  m_Name: WavePrompt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &96260392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 96260391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7e4c6dbd49e1c34bbc80b3014d98f96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  totalWavesNeeded: 2
+--- !u!114 &96260393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 96260391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: 31f95fbc5e5c76b43abb83de131495d8, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 35f1e0cd4b15945d49b59b9bd8b18a2d, type: 3}
+  m_SortingOrder: 5
+  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceWidth: 1920
+  m_WorldSpaceHeight: 1080
+--- !u!4 &96260394
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 96260391}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &623363153
 GameObject:
   m_ObjectHideFlags: 0
@@ -137,7 +202,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &623363154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,6 +310,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueData: {fileID: 623363154}
   startingNodeID: start
+  miniGame: {fileID: 0}
+  nodeForWave: start
+  wavePrompt: {fileID: 96260391}
+  wavePromptScript: {fileID: 96260392}
 --- !u!114 &623363156
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -290,6 +359,7 @@ GameObject:
   - component: {fileID: 1168093060}
   - component: {fileID: 1168093059}
   - component: {fileID: 1168093061}
+  - component: {fileID: 1168093062}
   m_Layer: 5
   m_Name: Screen
   m_TagString: Untagged
@@ -344,6 +414,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   countdownNum: 50
+--- !u!114 &1168093062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1168093058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 278510ddc2b0a9a418c5c45bc1034223, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogue: {fileID: 623363153}
 --- !u!1 &1934493084
 GameObject:
   m_ObjectHideFlags: 0
@@ -443,3 +526,4 @@ SceneRoots:
   - {fileID: 1934493087}
   - {fileID: 1168093060}
   - {fileID: 623363157}
+  - {fileID: 96260394}
