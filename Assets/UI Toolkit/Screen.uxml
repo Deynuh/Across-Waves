@@ -15,13 +15,17 @@
                 <ui:Label text="Days Left" name="Days" style="position: absolute; bottom: 50px; right: 0; left: 0; -unity-font-style: bold; font-size: 40px; color: rgb(206, 235, 236);" />
             </ui:Button>
         </ui:VisualElement>
-        <ui:VisualElement name="CallScreen" enabled="true" style="flex-grow: 1; right: 0; left: 440px; top: 75px; position: absolute; -unity-background-scale-mode: scale-and-crop; height: 900px; width: 1050px; background-color: rgb(27, 54, 72); opacity: 1;">
+        <ui:VisualElement name="CallScreen" enabled="true" style="flex-grow: 1; right: 0; left: 440px; top: 75px; position: absolute; -unity-background-scale-mode: scale-and-crop; height: 900px; width: 1050px; background-color: rgb(27, 54, 72); opacity: 1; display: none;">
             <ui:VisualElement name="PlayerCam" style="flex-grow: 1; right: 0; top: 0; position: absolute; width: 250px; height: 300px; background-color: rgb(180, 197, 197);" />
             <ui:Button name="Mic" class="button" style="bottom: 15px; left: 440px; position: absolute; width: 61px; height: 54px; background-image: url(&quot;project://database/Assets/Art/mic.png?fileID=2800000&amp;guid=3ae3b77c8c1d9af40aec3638f39ab0da&amp;type=3#mic&quot;); background-color: rgba(62, 78, 111, 0); border-left-color: rgba(149, 149, 149, 0); border-right-color: rgba(149, 149, 149, 0); border-top-color: rgba(149, 149, 149, 0); border-bottom-color: rgba(149, 149, 149, 0);" />
             <ui:Button name="EndCall" class="button" style="bottom: 15px; left: 524px; position: absolute; width: 61px; height: 54px; background-image: url(&quot;project://database/Assets/Art/endCall.png?fileID=2800000&amp;guid=caaf8f1b1ab7b8e4cb8215ea9a914a52&amp;type=3#endCall&quot;); background-color: rgba(62, 78, 111, 0); border-left-color: rgba(149, 149, 149, 0); border-right-color: rgba(149, 149, 149, 0); border-top-color: rgba(149, 149, 149, 0); border-bottom-color: rgba(149, 149, 149, 0);" />
         </ui:VisualElement>
         <ui:VisualElement name="Taskbar" style="flex-grow: 1; align-content: auto; transform-origin: bottom; bottom: 0; position: absolute; height: 50px; width: 1920px; left: 0; top: auto; right: 0; background-color: rgb(202, 202, 202);">
             <ui:Label text="12:00 AM" name="Time" style="right: 0; top: auto; position: absolute; height: 44px; width: 104px; white-space: pre; -unity-text-align: middle-center; font-size: 18px; -unity-font-style: bold;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="IncomingCall" style="flex-grow: 1; position: absolute; top: 10px; right: auto; left: 10px; width: 25%; height: 15%; background-color: rgb(181, 224, 236); border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px;">
+            <ui:Label text="Incoming call from: Elo" name="CallerInfo" style="flex-direction: row-reverse; flex-wrap: wrap; -unity-text-align: middle-center; bottom: auto; top: 30%; font-size: 24px; right: auto; width: 284px; left: 186px;" />
+            <ui:Button text="Accept" name="Accept" style="width: 100px; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; bottom: -60px; right: auto; left: 272px; border-left-color: rgb(75, 101, 231); border-right-color: rgb(75, 101, 231); border-top-color: rgb(75, 101, 231); border-bottom-color: rgb(75, 101, 231); background-color: rgb(152, 217, 154);" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>
