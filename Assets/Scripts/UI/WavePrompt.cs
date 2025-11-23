@@ -6,27 +6,41 @@ public class WavePrompt : MonoBehaviour
 {
     private VisualElement _root;
     private VisualElement _wavePromptElement;
+    private bool _isComplete;
+    
+    public int totalWavesNeeded = 10; // change as needed for each call
+    private int _waveCount;
+    private bool _wasMovingRight;
+    private bool _hasStartedMoving;
+    
+    private float _oscillateSpeed = 3f; 
+    private float _oscillateRange = 75f; 
+    private float _oscillateCounter;
 
-    void Start()
+
+    void Awake()
     {
         UIDocument uiDocument = GetComponent<UIDocument>();
         _root = uiDocument.rootVisualElement;
-
-        // Find your UI element by name/class
         _wavePromptElement = _root.Q("WavePrompt");
-
-        // Initially hide it
-        _wavePromptElement.style.display = DisplayStyle.None;
+    
+        // Don't show immediately - wait for DialogueController to activate
+        if (_wavePromptElement != null)
+        {
+            _wavePromptElement.style.display = DisplayStyle.None;
+        }
     }
-
+    
+    void OnEnable()
+    {
+        // Show when GameObject is activated by DialogueController
+        _waveCount = 0;
+        _isComplete = false;
+        ShowWavePrompt();
+    }
+    
     void Update()
     {
-        // Currently using B to make wave prompt show up for testing
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            ShowWavePrompt();
-        }
-        
         MoveWavePromptSideToSide();
         WaveListener();
     }
@@ -48,14 +62,9 @@ public class WavePrompt : MonoBehaviour
             Debug.Log("WavePrompt element shown!");
         }
     }
-    
-    private float _oscillateSpeed = 3f; 
-    private float _oscillateRange = 75f; 
-    private float _oscillateCounter;
-
     private void MoveWavePromptSideToSide()
     {
-        if (_wavePromptElement != null && IsWavePromptVisible())
+        if (_wavePromptElement != null && !_isComplete)
         {
             // Use Time.deltaTime for frame rate independent movement
             _oscillateCounter += _oscillateSpeed * Time.deltaTime;
@@ -70,8 +79,7 @@ public class WavePrompt : MonoBehaviour
             _wavePromptElement.style.left = newLeft;
         }
     }
-
-
+    
     private void HideWavePrompt()
     {
         if (_wavePromptElement != null)
@@ -94,15 +102,10 @@ public class WavePrompt : MonoBehaviour
         _wavePromptElement.style.display = DisplayStyle.None; // Then hide
     }
 
-    public int totalWavesNeeded = 10; // change as needed for each call
-    private int _waveCount;
-    private bool _wasMovingRight;
-    private bool _hasStartedMoving;
+ 
     private void WaveListener()
     {
-        
-        
-        if (IsWavePromptVisible())
+        if (!_isComplete)
         {
             float mouseX = Input.GetAxis("Mouse X");
             if (Mathf.Abs(mouseX) > 0.1f)
@@ -119,6 +122,7 @@ public class WavePrompt : MonoBehaviour
                     if (_waveCount >= totalWavesNeeded)
                     {
                         Debug.Log(totalWavesNeeded + " waves complete!");
+                        _isComplete = true;
                         HideWavePrompt();
                         _waveCount = 0;
                         _hasStartedMoving = false;
@@ -133,14 +137,8 @@ public class WavePrompt : MonoBehaviour
         }
     }
     
-    private bool IsWavePromptVisible()
+    public bool IsWaveComplete()
     {
-        if (_wavePromptElement != null)
-        {
-            return _wavePromptElement.style.display == DisplayStyle.Flex && 
-                   _wavePromptElement.style.opacity.value > 0f;
-        }
-        return false;
+        return _isComplete;
     }
-    
 }

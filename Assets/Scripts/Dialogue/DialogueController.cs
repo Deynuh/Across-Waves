@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -8,6 +9,9 @@ public class DialogueController : MonoBehaviour
     [SerializeField] private DialogueData dialogueData;
     [SerializeField] private string startingNodeID = "start";
     [SerializeField] private GameObject miniGame;
+    [SerializeField] private string nodeForWave;
+    [SerializeField] private GameObject wavePrompt;
+    [SerializeField] private WavePrompt wavePromptScript;
     
     private Button choice1;
     private Button choice2;
@@ -19,6 +23,8 @@ public class DialogueController : MonoBehaviour
     
     private void Awake()
     {
+        wavePromptScript = wavePrompt.GetComponent<WavePrompt>();
+        
         dialogueContainer = GetComponent<UIDocument>().rootVisualElement.Q("Box") as VisualElement;
         dialogueText = GetComponent<UIDocument>().rootVisualElement.Q("Text") as Label;
         dialogueText.RegisterCallback<ClickEvent>(OnDialogueClick);
@@ -44,14 +50,39 @@ public class DialogueController : MonoBehaviour
     {
         if (!string.IsNullOrEmpty(currentNode.nextNodeID))
         {
-            NavigateToNode(currentNode.nextNodeID);
+            // Check if this node should trigger the wave prompt
+            if (currentNode.nodeID == nodeForWave)
+            {
+                wavePrompt.SetActive(true);
+                StartCoroutine(WaitForWaveCompletion(currentNode.nextNodeID));
+            }
+            else
+            {
+                NavigateToNode(currentNode.nextNodeID);
+            }
         }
         else
         {
             Debug.Log("Dialogue ended");
-            dialogueContainer.style.display = DisplayStyle.None; // Hide dialogue UI, can be shown later if need
+            dialogueContainer.style.display = DisplayStyle.None;
             miniGame.SetActive(true);
         }
+    }
+    
+    private IEnumerator WaitForWaveCompletion(string nextNodeID)
+    {
+        dialogueContainer.style.display = DisplayStyle.None;
+        
+        // Wait until waves are done
+        while (!wavePromptScript.IsWaveComplete())
+        {
+            yield return null;
+        }
+    
+        Debug.Log("Wave complete, continuing dialogue");
+        dialogueContainer.style.display = DisplayStyle.Flex;
+        wavePrompt.SetActive(false);
+        NavigateToNode(nextNodeID);
     }
 
     private void Start()
