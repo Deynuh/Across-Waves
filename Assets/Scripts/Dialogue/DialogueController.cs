@@ -7,18 +7,20 @@ public class DialogueController : MonoBehaviour
 {
     [SerializeField] private DialogueData dialogueData;
     [SerializeField] private string startingNodeID = "start";
+    [SerializeField] private GameObject miniGame;
     
     private Button choice1;
     private Button choice2;
     private Label dialogueText;
+    private VisualElement dialogueContainer;
 
     private DialogueData.DialogueNode currentNode;
     private List<DialogueData.DialogueNode> allNodes;
     
     private void Awake()
     {
+        dialogueContainer = GetComponent<UIDocument>().rootVisualElement.Q("Box") as VisualElement;
         dialogueText = GetComponent<UIDocument>().rootVisualElement.Q("Text") as Label;
-        
         dialogueText.RegisterCallback<ClickEvent>(OnDialogueClick);
         
         choice1 = GetComponent<UIDocument>().rootVisualElement.Q("Choice1") as Button;
@@ -47,6 +49,8 @@ public class DialogueController : MonoBehaviour
         else
         {
             Debug.Log("Dialogue ended");
+            dialogueContainer.style.display = DisplayStyle.None; // Hide dialogue UI, can be shown later if need
+            miniGame.SetActive(true);
         }
     }
 
@@ -91,6 +95,13 @@ public class DialogueController : MonoBehaviour
     
     private void NavigateToNode(string nodeID)
     {
+        if (string.IsNullOrEmpty(nodeID))
+        {
+            Debug.Log("Dialogue ended - enabling mini game");
+            miniGame.SetActive(true);
+            return;
+        }
+
         currentNode = allNodes.FirstOrDefault(node => node.nodeID == nodeID);
         if (currentNode != null)
         {
@@ -98,7 +109,7 @@ public class DialogueController : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning($"Node with ID '{nodeID}' not found!");
+            Debug.LogError("Node not found: " + nodeID);
         }
     }
     
