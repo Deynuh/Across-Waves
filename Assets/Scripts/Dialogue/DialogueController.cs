@@ -8,10 +8,10 @@ public class DialogueController : MonoBehaviour
 {
     [SerializeField] private DialogueData dialogueData;
     [SerializeField] private string startingNodeID = "start";
-    [SerializeField] private GameObject miniGame;
     [SerializeField] private string nodeForWave;
     [SerializeField] private GameObject wavePrompt;
     [SerializeField] private WavePrompt wavePromptScript;
+    [SerializeField] private GameObject screen;
     
     private Button choice1;
     private Button choice2;
@@ -64,8 +64,9 @@ public class DialogueController : MonoBehaviour
         else
         {
             Debug.Log("Dialogue ended");
+            screen.GetComponent<UIDocument>().rootVisualElement.Q("GameInvite").style.display= DisplayStyle.Flex;
+
             dialogueContainer.style.display = DisplayStyle.None;
-            miniGame.SetActive(true);
         }
     }
     
@@ -118,7 +119,6 @@ public class DialogueController : MonoBehaviour
         // no choices, hide buttons
         else
         {
-            
             choice1.style.display = DisplayStyle.None;
             choice2.style.display = DisplayStyle.None;
         }
@@ -128,8 +128,8 @@ public class DialogueController : MonoBehaviour
     {
         if (string.IsNullOrEmpty(nodeID))
         {
-            Debug.Log("Dialogue ended - enabling mini game");
-            miniGame.SetActive(true);
+            Debug.Log("Dialogue ended - enabling game invite");
+            screen.GetComponent<UIDocument>().rootVisualElement.Q("GameInvite").style.display= DisplayStyle.Flex;
             return;
         }
 
