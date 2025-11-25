@@ -9,7 +9,6 @@ public class DialogueController : MonoBehaviour
     [SerializeField] private DialogueData dialogueData;
     [SerializeField] private string startingNodeID = "start";
     [SerializeField] private string nodeForWave;
-    [SerializeField] private string lastNode;
     [SerializeField] private GameObject wavePrompt;
     [SerializeField] private WavePrompt wavePromptScript;
     [SerializeField] private GameObject screen;

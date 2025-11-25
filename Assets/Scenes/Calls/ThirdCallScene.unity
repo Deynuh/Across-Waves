@@ -310,10 +310,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueData: {fileID: 623363154}
   startingNodeID: start
-  miniGame: {fileID: 0}
   nodeForWave: start
   wavePrompt: {fileID: 96260391}
   wavePromptScript: {fileID: 96260392}
+  screen: {fileID: 1168093058}
 --- !u!114 &623363156
 MonoBehaviour:
   m_ObjectHideFlags: 0
