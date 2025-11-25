@@ -9,6 +9,7 @@ public class DialogueController : MonoBehaviour
     [SerializeField] private DialogueData dialogueData;
     [SerializeField] private string startingNodeID = "start";
     [SerializeField] private string nodeForWave;
+    [SerializeField] private string lastNode;
     [SerializeField] private GameObject wavePrompt;
     [SerializeField] private WavePrompt wavePromptScript;
     [SerializeField] private GameObject screen;
@@ -48,33 +49,45 @@ public class DialogueController : MonoBehaviour
     
     private void ContinueDialogue()
     {
-        if (!string.IsNullOrEmpty(currentNode.nextNodeID))
+        // check if node should trigger the wave prompt
+        if (currentNode.nodeID == nodeForWave)
         {
-            // Check if this node should trigger the wave prompt
-            if (currentNode.nodeID == nodeForWave)
-            {
-                wavePrompt.SetActive(true);
-                StartCoroutine(WaitForWaveCompletion(currentNode.nextNodeID));
-            }
-            else
-            {
-                NavigateToNode(currentNode.nextNodeID);
-            }
+            wavePrompt.SetActive(true);
+            StartCoroutine(WaitForWaveCompletion(currentNode.nextNodeID));
+        }
+        else if (string.IsNullOrEmpty(currentNode.nextNodeID))
+        {
+            // // display current node and then after a small 3 second wait, show game invite
+            Debug.Log("Reached last node, preparing to show game invite");
+            StartCoroutine(ShowGameInviteAfterDelay(3f));
         }
         else
         {
-            Debug.Log("Dialogue ended");
-            screen.GetComponent<UIDocument>().rootVisualElement.Q("GameInvite").style.display= DisplayStyle.Flex;
-
-            dialogueContainer.style.display = DisplayStyle.None;
+            // go to next node
+            currentNode = allNodes.FirstOrDefault(node => node.nodeID == currentNode.nextNodeID);
+            if (currentNode != null)
+            {
+                DisplayCurrentNode();
+            }
+            else
+            {
+                Debug.LogError("Node not found: " + currentNode.nextNodeID);
+            }
         }
+    }
+    
+    private IEnumerator ShowGameInviteAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Debug.Log("Showing game invite after delay");
+        screen.GetComponent<UIDocument>().rootVisualElement.Q("GameInvite").style.display = DisplayStyle.Flex;
+        dialogueContainer.style.display = DisplayStyle.None;
     }
     
     private IEnumerator WaitForWaveCompletion(string nextNodeID)
     {
         dialogueContainer.style.display = DisplayStyle.None;
         
-        // Wait until waves are done
         while (!wavePromptScript.IsWaveComplete())
         {
             yield return null;
@@ -83,7 +96,16 @@ public class DialogueController : MonoBehaviour
         Debug.Log("Wave complete, continuing dialogue");
         dialogueContainer.style.display = DisplayStyle.Flex;
         wavePrompt.SetActive(false);
-        NavigateToNode(nextNodeID);
+        
+        currentNode = allNodes.FirstOrDefault(node => node.nodeID == nextNodeID);
+        if (currentNode != null)
+        {
+            DisplayCurrentNode();
+        }
+        else
+        {
+            Debug.LogError("Node not found: " + nextNodeID);
+        }
     }
 
     private void Start()
@@ -124,31 +146,21 @@ public class DialogueController : MonoBehaviour
         }
     }
     
-    private void NavigateToNode(string nodeID)
-    {
-        if (string.IsNullOrEmpty(nodeID))
-        {
-            Debug.Log("Dialogue ended - enabling game invite");
-            screen.GetComponent<UIDocument>().rootVisualElement.Q("GameInvite").style.display= DisplayStyle.Flex;
-            return;
-        }
-
-        currentNode = allNodes.FirstOrDefault(node => node.nodeID == nodeID);
-        if (currentNode != null)
-        {
-            DisplayCurrentNode();
-        }
-        else
-        {
-            Debug.LogError("Node not found: " + nodeID);
-        }
-    }
-    
     private void OnChoice1Click(ClickEvent e) 
     {
         if (currentNode.choices != null && currentNode.choices.Count > 0)
         {
-            NavigateToNode(currentNode.choices[0].targetNodeID);
+            string targetNodeID = currentNode.choices[0].targetNodeID;
+            currentNode = allNodes.FirstOrDefault(node => node.nodeID == targetNodeID);
+
+            if (currentNode != null)
+            {
+                DisplayCurrentNode();
+            }
+            else
+            {
+                Debug.LogError("Node not found: " + targetNodeID);
+            }
         }
     }
 
@@ -156,7 +168,17 @@ public class DialogueController : MonoBehaviour
     {
         if (currentNode.choices != null && currentNode.choices.Count > 1)
         {
-            NavigateToNode(currentNode.choices[1].targetNodeID);
+            string targetNodeID = currentNode.choices[1].targetNodeID;
+            currentNode = allNodes.FirstOrDefault(node => node.nodeID == targetNodeID);
+
+            if (currentNode != null)
+            {
+                DisplayCurrentNode();
+            }
+            else
+            {
+                Debug.LogError("Node not found: " + targetNodeID);
+            }
         }
     }
     

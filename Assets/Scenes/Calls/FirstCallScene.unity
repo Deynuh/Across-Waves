@@ -315,10 +315,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueData: {fileID: 817045505}
   startingNodeID: start
-  miniGame: {fileID: 598761121}
   nodeForWave: start
+  lastNode: eloTryGame
   wavePrompt: {fileID: 162102921}
   wavePromptScript: {fileID: 162102922}
+  screen: {fileID: 1125193225}
 --- !u!114 &817045505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -543,6 +544,7 @@ GameObject:
   - component: {fileID: 1125193226}
   - component: {fileID: 1125193228}
   - component: {fileID: 1125193229}
+  - component: {fileID: 1125193230}
   m_Layer: 5
   m_Name: Screen
   m_TagString: Untagged
@@ -610,6 +612,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue: {fileID: 817045501}
+--- !u!114 &1125193230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125193225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62bdc982b4a811349bfc648ff23a0c8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  miniGame: {fileID: 598761121}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
