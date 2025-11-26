@@ -248,6 +248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5329df01045af4af6948185acdce7e67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  endDialogue: {fileID: 870425110}
 --- !u!1 &817045501
 GameObject:
   m_ObjectHideFlags: 0
@@ -439,6 +440,161 @@ MonoBehaviour:
     - choiceText: I will.. let's talk about something else for now though
       targetNodeID: eloTryGame
     nextNodeID: 
+--- !u!1 &870425110
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 870425114}
+  - component: {fileID: 870425113}
+  - component: {fileID: 870425112}
+  - component: {fileID: 870425111}
+  m_Layer: 5
+  m_Name: EndDialogue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &870425111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 870425110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41d0eed8772294ceea22cbebcb189407, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodes:
+  - nodeID: gameOver
+    dialogueText: That was pretty cute! Thanks for playing with me.
+    choices:
+    - choiceText: That was fun!
+      targetNodeID: eloItWas
+    - choiceText: That was meh
+      targetNodeID: eloAgree
+    nextNodeID: 
+  - nodeID: eloAgree
+    dialogueText: Haha you're just upset I drew better than you!
+    choices:
+    - choiceText: As if!!
+      targetNodeID: eloLaugh
+    - choiceText: I want a rematch!
+      targetNodeID: eloCant
+    nextNodeID: 
+  - nodeID: eloLaugh
+    dialogueText: I'm kidding, love, you're so cute. Let's find more games to play
+      tomorrow!
+    choices:
+    - choiceText: Let's!
+      targetNodeID: eloGoodbye
+    - choiceText: I choose what we play tomorrow!
+      targetNodeID: eloFine
+    nextNodeID: 
+  - nodeID: eloCant
+    dialogueText: Hahaha you're on! Let's do that tomorrow?
+    choices:
+    - choiceText: Yeah!
+      targetNodeID: eloGoodbye
+    - choiceText: You're going down.
+      targetNodeID: eloScared
+    nextNodeID: 
+  - nodeID: eloFine
+    dialogueText: Yes, love, we can playwhatever game you want tomorrow.
+    choices:
+    - choiceText: Yay!
+      targetNodeID: eloGoodbye
+    - choiceText: You're going down.
+      targetNodeID: eloScared
+    nextNodeID: 
+  - nodeID: eloScared
+    dialogueText: You're adorable when you're competitive. I wish we had more time
+      to talk today.
+    choices:
+    - choiceText: Me too..
+      targetNodeID: eloGoodbye
+    - choiceText: It's okay we'll talk more tomorrow!
+      targetNodeID: eloGoodbye
+    nextNodeID: 
+  - nodeID: eloGoodbye
+    dialogueText: Okay, I really have to go now. Sorry I didn't have much time to
+      talk today, love. See you tomorrow?
+    choices:
+    - choiceText: It's alright. See you tomorrow. I love you!
+      targetNodeID: goodbye
+    - choiceText: I miss you already.. I love you!
+      targetNodeID: goodbye
+    nextNodeID: 
+  - nodeID: goodbye
+    dialogueText: I love you too, bye for now!
+    choices: []
+    nextNodeID: 
+  - nodeID: eloItWas
+    dialogueText: It really was. Let's play more tomorrow?
+    choices:
+    - choiceText: Let's!
+      targetNodeID: eloGoodbye
+    - choiceText: I choose what we play tomorrow!
+      targetNodeID: eloFine
+    nextNodeID: 
+--- !u!114 &870425112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 870425110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f57d9ce1a632417882d190a9e0d68de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueData: {fileID: 870425111}
+  startingNodeID: gameOver
+  nodeForWave: goodbye
+  wavePrompt: {fileID: 162102921}
+  wavePromptScript: {fileID: 162102922}
+  screen: {fileID: 1125193225}
+--- !u!114 &870425113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 870425110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: 31f95fbc5e5c76b43abb83de131495d8, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: e3c3578aaa3b7c94d8465e363ff2a435, type: 3}
+  m_SortingOrder: 1
+  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceWidth: 1920
+  m_WorldSpaceHeight: 1080
+--- !u!4 &870425114
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 870425110}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1096229714
 GameObject:
   m_ObjectHideFlags: 0
@@ -633,3 +789,4 @@ SceneRoots:
   - {fileID: 817045503}
   - {fileID: 162102924}
   - {fileID: 598761123}
+  - {fileID: 870425114}

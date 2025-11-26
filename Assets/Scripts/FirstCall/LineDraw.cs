@@ -187,7 +187,7 @@ public class LineDraw : VisualElement
             }
         }
 
-        // player's drawing lines (unchanged)
+        // player's drawing lines
         painter.strokeColor = Color.red;
         painter.lineWidth = 5f;
 

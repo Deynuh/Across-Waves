@@ -6,6 +6,7 @@ public class DrawGameSetup : MonoBehaviour
 {
     private VisualElement canvas;
     private LineDraw drawArea;
+    [SerializeField] private GameObject endDialogue;
     private const float canvasWidth = 1350f;
     private const float canvasHeight = 800f;
     private Vector2 center = new Vector2(canvasWidth/2f, canvasHeight/2f);
@@ -18,6 +19,8 @@ public class DrawGameSetup : MonoBehaviour
         var titlePage = GetComponent<UIDocument>().rootVisualElement.Q("TitlePage");
         var clearButton = canvas.Q<Button>("ClearDrawing");
         var undoButton = canvas.Q<Button>("Undo");
+        // show this after the npc finishes drawing, make it trigger last dialogue.
+        var doneButton = canvas.Q<Button>("Done"); 
 
         // Create the drawing area first
         drawArea = new LineDraw();
@@ -50,7 +53,8 @@ public class DrawGameSetup : MonoBehaviour
                 var npcDrawing = CreateNPCDrawing(allTemplates);
                 drawArea.StartNPCDrawing(npcDrawing, () =>
                 {
-                    Debug.Log("NPC finished!");
+                    Debug.Log("NPC finished! Showing done button.");
+                    doneButton.style.display = DisplayStyle.Flex;
                 });
                 
                 firstClick = false;
@@ -70,6 +74,14 @@ public class DrawGameSetup : MonoBehaviour
             {
                 drawArea.Undo();
             }
+        };
+        
+         // done button listener
+        doneButton.clicked += () => {
+            Debug.Log("Done button clicked!");
+            //hide this game component
+            endDialogue.SetActive(true);
+            gameObject.SetActive(false);
         };
 
         // Add it to UI
@@ -116,6 +128,5 @@ public class DrawGameSetup : MonoBehaviour
 
         return npcLines;
     }
-
 }
 
