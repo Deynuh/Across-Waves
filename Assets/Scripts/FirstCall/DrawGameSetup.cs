@@ -17,7 +17,7 @@ public class DrawGameSetup : MonoBehaviour
 
         var titlePage = GetComponent<UIDocument>().rootVisualElement.Q("TitlePage");
         var clearButton = canvas.Q<Button>("ClearDrawing");
-        var info = canvas.Q<Label>("Info");
+        var undoButton = canvas.Q<Button>("Undo");
 
         // Create the drawing area first
         drawArea = new LineDraw();
@@ -35,7 +35,7 @@ public class DrawGameSetup : MonoBehaviour
             {
                 titlePage.style.display = DisplayStyle.None;
                 clearButton.style.display = DisplayStyle.Flex;
-                info.style.display = DisplayStyle.Flex;
+                undoButton.style.display = DisplayStyle.Flex;
                 
                 // set up bear template
                 var bearTemplate = new BearTemplate(center, radius);
@@ -63,20 +63,17 @@ public class DrawGameSetup : MonoBehaviour
             drawArea.ClearDrawing();
         };
 
-        // Add it to UI
-        canvas.Add(drawArea);
-    }
-    
-    void Update()
-    {
-        // Ctrl+Z undo functionality
-        if (Input.GetKeyDown(KeyCode.Z) && Input.GetKey(KeyCode.LeftControl))
-        {
+        // undo button listener
+        undoButton.clicked += () => {
+            Debug.Log("Undo button clicked!");
             if (drawArea != null)
             {
                 drawArea.Undo();
             }
-        }
+        };
+
+        // Add it to UI
+        canvas.Add(drawArea);
     }
     
     List<Vector2> CreateNPCDrawing(List<List<Vector2>> allTemplates)
