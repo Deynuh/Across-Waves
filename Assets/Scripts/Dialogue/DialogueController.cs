@@ -57,7 +57,7 @@ public class DialogueController : MonoBehaviour
         else if (string.IsNullOrEmpty(currentNode.nextNodeID))
         {
             // // display current node and then after a small 3 second wait, show game invite
-            Debug.Log("Reached last node, preparing to show game invite");
+            Debug.Log("Reached last node, preparing to show game");
             StartCoroutine(ShowGameInviteAfterDelay(3f));
         }
         else
@@ -78,7 +78,7 @@ public class DialogueController : MonoBehaviour
     private IEnumerator ShowGameInviteAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        Debug.Log("Showing game invite after delay");
+        Debug.Log("Showing game after delay");
         screen.GetComponent<UIDocument>().rootVisualElement.Q("GameInvite").style.display = DisplayStyle.Flex;
         dialogueContainer.style.display = DisplayStyle.None;
     }
