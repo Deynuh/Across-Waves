@@ -285,25 +285,25 @@ MonoBehaviour:
     dialogueText: Nothing. Whatever.
     choices:
     - choiceText: Okay.
-      targetNodeID: eloBye
+      targetNodeID: eloByeThen
     - choiceText: I don't really feel like talking now.
       targetNodeID: eloSame
     nextNodeID: 
-  - nodeID: eloBye
+  - nodeID: eloByeThen
     dialogueText: Ok. Bye then.
     choices:
     - choiceText: Bye.
-      targetNodeID: 
+      targetNodeID: eloBye
     - choiceText: Mhm.
-      targetNodeID: 
+      targetNodeID: eloBye
     nextNodeID: 
   - nodeID: eloSame
     dialogueText: Yeah, same. Let's talk later then.
     choices:
     - choiceText: Yeah.. Bye.
-      targetNodeID: 
+      targetNodeID: eloBye
     - choiceText: Sounds good. Bye.
-      targetNodeID: 
+      targetNodeID: eloBye
     nextNodeID: 
   - nodeID: eloSure
     dialogueText: ...Sure. Let's talk later?
@@ -337,9 +337,9 @@ MonoBehaviour:
     dialogueText: I love you.
     choices:
     - choiceText: I love you too. Bye.
-      targetNodeID: 
+      targetNodeID: eloBye
     - choiceText: Yeah, bye.
-      targetNodeID: 
+      targetNodeID: eloBye
     nextNodeID: 
 --- !u!114 &623363155
 MonoBehaviour:
@@ -362,6 +362,7 @@ MonoBehaviour:
   shouldShowGameInvite: 0
   shouldShowConnectionGame: 0
   connectionGame: {fileID: 0}
+  endingNodeID: eloBye
 --- !u!114 &623363156
 MonoBehaviour:
   m_ObjectHideFlags: 0

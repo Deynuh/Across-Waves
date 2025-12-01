@@ -17,7 +17,6 @@ public class DialogueController : MonoBehaviour
     [SerializeField] private bool shouldShowConnectionGame = false;
     [SerializeField] private GameObject connectionGame;
     [SerializeField] private string endingNodeID = "end";
-    [SerializeField] private GameObject fade;
 
     private Button choice1;
     private Button choice2;
@@ -66,12 +65,15 @@ public class DialogueController : MonoBehaviour
             StartCoroutine(WaitForWaveCompletion(currentNode.nextNodeID));
         }
         // display current node and then after a small 3 second wait, show game invite
-        else if (string.IsNullOrEmpty(currentNode.nextNodeID) && shouldShowGameInvite)
+        else if (string.IsNullOrEmpty(currentNode.nextNodeID) && shouldShowGameInvite || shouldShowConnectionGame)
         {
-
             Debug.Log("Reached last node, preparing to show game");
             StartCoroutine(ShowGameInviteAfterDelay(3f));
-
+        }
+        else if (string.IsNullOrEmpty(currentNode.nextNodeID))
+        {
+            Debug.Log("End of dialogue, loading next scene");
+            SceneLoader.Instance.LoadNextScene();
         }
         // go to next node
         else

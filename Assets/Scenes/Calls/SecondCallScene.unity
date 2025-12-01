@@ -183,6 +183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71636477c3001b34a85f03f164ed3a53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  endDialogue: {fileID: 1008535667}
 --- !u!1 &464581910
 GameObject:
   m_ObjectHideFlags: 0
@@ -520,6 +521,106 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1008535667
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1008535671}
+  - component: {fileID: 1008535670}
+  - component: {fileID: 1008535669}
+  - component: {fileID: 1008535668}
+  m_Layer: 5
+  m_Name: EndDialogue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1008535668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1008535667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41d0eed8772294ceea22cbebcb189407, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodes:
+  - nodeID: start
+    dialogueText: I'll just try to call you back later, okay love? Sorry..
+    choices:
+    - choiceText: Okay.. I love you..
+      targetNodeID: ily
+    - choiceText: Don't worry about it! Let's call later. I love you!
+      targetNodeID: ily
+    nextNodeID: 
+  - nodeID: ily
+    dialogueText: I love you too!
+    choices: []
+    nextNodeID: 
+--- !u!114 &1008535669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1008535667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f57d9ce1a632417882d190a9e0d68de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueData: {fileID: 1008535668}
+  startingNodeID: start
+  nodeForWave: ily
+  wavePrompt: {fileID: 935310259}
+  wavePromptScript: {fileID: 935310260}
+  screen: {fileID: 1180194162}
+  shouldShowGameInvite: 0
+  shouldShowConnectionGame: 0
+  connectionGame: {fileID: 94979996}
+  endingNodeID: ily
+--- !u!114 &1008535670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1008535667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: 31f95fbc5e5c76b43abb83de131495d8, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: e3c3578aaa3b7c94d8465e363ff2a435, type: 3}
+  m_SortingOrder: 1
+  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceWidth: 1920
+  m_WorldSpaceHeight: 1080
+--- !u!4 &1008535671
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1008535667}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1180194162
 GameObject:
   m_ObjectHideFlags: 0
@@ -615,8 +716,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eloSprites:
   - {fileID: 481709084365198997, guid: fa149376171022440bd2053458a1aa9f, type: 3}
+  - {fileID: 307716012662897823, guid: 61fafc4877723da48a24bc9ebcf2fecf, type: 3}
   umiSprites:
   - {fileID: -5384560794722161692, guid: 8c8bb9e394c7f8d4681d9e07c830127c, type: 3}
+  - {fileID: 8292570024035693271, guid: 6f9d03bed8023834fb79e440c527a84f, type: 3}
 --- !u!82 &1180194168
 AudioSource:
   m_ObjectHideFlags: 0
@@ -795,6 +898,7 @@ MonoBehaviour:
   shouldShowGameInvite: 0
   shouldShowConnectionGame: 1
   connectionGame: {fileID: 94979996}
+  endingNodeID: 
 --- !u!114 &1211660253
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -929,6 +1033,7 @@ SceneRoots:
   - {fileID: 1180194164}
   - {fileID: 94979998}
   - {fileID: 1211660254}
+  - {fileID: 1008535671}
   - {fileID: 935310262}
   - {fileID: 815032129}
   - {fileID: 464581913}

@@ -4,6 +4,7 @@ using UnityEngine.UIElements;
 public class ConnectionGame : MonoBehaviour
 {
     private ProgressBar[] signalBars;
+    [SerializeField] private GameObject endDialogue;
 
     private int currentBarIndex = 0;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -15,16 +16,16 @@ public class ConnectionGame : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
             signalBars[i] = root.Q<ProgressBar>($"Signal{i + 1}");
-            
+
             int barIndex = i; // need this for OnBarClicked closure
             signalBars[i].RegisterCallback<ClickEvent>(evt => OnBarClicked(barIndex));
         }
     }
-    
+
     void OnBarClicked(int clickedBarIndex)
     {
         Debug.Log($"Bar {clickedBarIndex + 1} clicked!");
-        
+
         // check if player on correct bar
         if (clickedBarIndex == currentBarIndex)
         {
@@ -32,11 +33,13 @@ public class ConnectionGame : MonoBehaviour
             signalBars[currentBarIndex].value = 100.0f;
             currentBarIndex++;
 
-            // if all bars are filled, hide game UI
+            // check if all bars filled
             if (currentBarIndex >= signalBars.Length)
             {
                 Debug.Log("All bars filled.");
-                GetComponent<UIDocument>().enabled = false;
+                endDialogue.SetActive(true);
+                gameObject.SetActive(false);
+                // GetComponent<UIDocument>().enabled = false;
             }
         }
         // wrong bar clicked

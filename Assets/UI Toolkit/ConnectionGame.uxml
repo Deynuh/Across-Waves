@@ -1,12 +1,14 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/ConnectionGame.uss?fileID=7433441132597879392&amp;guid=1fd7537a3394c4e40824f2613f177488&amp;type=3#ConnectionGame" />
     <ui:VisualElement name="Container" enabled="true" style="flex-grow: 1; right: 0; left: 440px; top: 75px; position: absolute; -unity-background-scale-mode: scale-and-crop; height: 900px; width: 1050px; background-color: rgb(27, 54, 72); opacity: 1; display: flex;">
         <ui:Label text="Reconnecting..." name="Reconnecting" style="color: rgb(255, 255, 255); font-size: 35px; -unity-text-align: middle-center; top: 30%;" />
         <ui:VisualElement style="flex-grow: 1; position: absolute; top: 40%; left: 30%; right: 30%; bottom: 30%; border-left-color: rgb(255, 255, 255); border-right-color: rgb(255, 255, 255); border-top-color: rgb(255, 255, 255); border-bottom-color: rgb(255, 255, 255); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0;">
-            <ui:ProgressBar value="22" name="Signal1" style="opacity: 0.46; top: 50%; left: 25%; right: auto; width: 10%; rotate: -90deg; position: absolute;" />
-            <ui:ProgressBar value="22" name="Signal2" style="opacity: 0.46; top: 45.6%; left: 30%; right: auto; width: 15%; rotate: -90deg; position: absolute;" />
-            <ui:ProgressBar value="22" name="Signal3" style="opacity: 0.46; top: 42%; left: 35%; right: auto; width: 20%; rotate: -90deg; position: absolute;" />
-            <ui:ProgressBar value="22" name="Signal4" style="opacity: 0.46; top: 38%; left: 40%; right: auto; width: 25%; rotate: -90deg; position: absolute;" />
-            <ui:ProgressBar value="22" name="Signal5" style="opacity: 0.46; top: 34%; left: 45%; right: auto; width: 30%; rotate: -90deg; position: absolute;" />
+            <ui:ProgressBar value="0" name="Signal1" class="signal" style="opacity: 0.46; top: 50%; left: 25%; right: auto; width: 10%; rotate: -90deg; position: absolute;" />
+            <ui:ProgressBar value="0" name="Signal2" class="signal" style="opacity: 0.46; top: 45.6%; left: 30%; right: auto; width: 15%; rotate: -90deg; position: absolute;" />
+            <ui:ProgressBar value="0" name="Signal3" class="signal" style="opacity: 0.46; top: 42%; left: 35%; right: auto; width: 20%; rotate: -90deg; position: absolute;" />
+            <ui:ProgressBar value="0" name="Signal4" class="signal" style="opacity: 0.46; top: 38%; left: 40%; right: auto; width: 25%; rotate: -90deg; position: absolute;" />
+            <ui:ProgressBar value="0" name="Signal5" class="signal" style="opacity: 0.46; top: 34%; left: 45%; right: auto; width: 30%; rotate: -90deg; position: absolute;" />
         </ui:VisualElement>
+        <ui:Label text="Fill each bar to reconnect!" name="Instructions" style="color: rgb(255, 255, 255); -unity-text-align: upper-center; font-size: 25px; position: absolute; top: 598px; left: 360px;" />
     </ui:VisualElement>
 </ui:UXML>

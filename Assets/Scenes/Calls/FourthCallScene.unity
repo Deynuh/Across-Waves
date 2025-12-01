@@ -519,12 +519,12 @@ MonoBehaviour:
       targetNodeID: eloHahaha
     nextNodeID: 
   - nodeID: eloThanksLove
-    dialogueText: Thanks, love. I love you, good night!!
+    dialogueText: 'Thanks, love. '
     choices:
-    - choiceText: I love you too, good night!
-      targetNodeID: 
-    - choiceText: I love you most, good night!
-      targetNodeID: 
+    - choiceText: Of course. I love you!
+      targetNodeID: eloGoodnight
+    - choiceText: My pleasure. I love you!
+      targetNodeID: eloGoodnight
     nextNodeID: 
   - nodeID: eloHahaha
     dialogueText: Hahaha, can't wait. I love you, good night!
@@ -641,6 +641,7 @@ MonoBehaviour:
   shouldShowGameInvite: 0
   shouldShowConnectionGame: 0
   connectionGame: {fileID: 0}
+  endingNodeID: eloGoodnight
 --- !u!114 &1631527413
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -7,14 +7,14 @@ public class WavePrompt : MonoBehaviour
     private VisualElement _root;
     private VisualElement _wavePromptElement;
     private bool _isComplete;
-    
+
     public int totalWavesNeeded = 10; // change as needed for each call
     private int _waveCount;
     private bool _wasMovingRight;
     private bool _hasStartedMoving;
-    
-    private float _oscillateSpeed = 3f; 
-    private float _oscillateRange = 75f; 
+
+    private float _oscillateSpeed = 3f;
+    private float _oscillateRange = 75f;
     private float _oscillateCounter;
 
 
@@ -23,22 +23,24 @@ public class WavePrompt : MonoBehaviour
         UIDocument uiDocument = GetComponent<UIDocument>();
         _root = uiDocument.rootVisualElement;
         _wavePromptElement = _root.Q("WavePrompt");
-    
+
         // Don't show immediately - wait for DialogueController to activate
         if (_wavePromptElement != null)
         {
             _wavePromptElement.style.display = DisplayStyle.None;
         }
     }
-    
+
     void OnEnable()
     {
         // Show when GameObject is activated by DialogueController
+        Debug.Log("WavePrompt OnEnable called - Reset state");
         _waveCount = 0;
         _isComplete = false;
+        _hasStartedMoving = false;
         ShowWavePrompt();
     }
-    
+
     void Update()
     {
         MoveWavePromptSideToSide();
@@ -49,16 +51,12 @@ public class WavePrompt : MonoBehaviour
     {
         if (_wavePromptElement != null)
         {
+            _oscillateCounter = 0f;
+            _hasStartedMoving = false;
+            _isComplete = false;
+
             _wavePromptElement.style.display = DisplayStyle.Flex;
-            _wavePromptElement.style.opacity = 0f; // Start fully transparent
-            
-            // Add transition for smooth fade
-            _wavePromptElement.style.transitionDuration = new List<TimeValue> { new TimeValue(0.5f) };
-            _wavePromptElement.style.transitionProperty = new List<StylePropertyName> { new StylePropertyName("opacity") };
-        
-            // Fade in after a small delay to ensure display is set
-            StartCoroutine(FadeIn());
-            
+
             Debug.Log("WavePrompt element shown!");
         }
     }
@@ -79,30 +77,51 @@ public class WavePrompt : MonoBehaviour
             _wavePromptElement.style.left = newLeft;
         }
     }
-    
+
     private void HideWavePrompt()
     {
         if (_wavePromptElement != null)
         {
-            StartCoroutine(FadeOut());
+            _wavePromptElement.style.display = DisplayStyle.None;
+            // StartCoroutine(FadeOut());
             Debug.Log("WavePrompt element hidden!");
         }
     }
-    
-    private System.Collections.IEnumerator FadeIn()
-    {
-        yield return null; // Wait one frame
-        _wavePromptElement.style.opacity = 1f; // Fade to visible
-    }
 
-    private System.Collections.IEnumerator FadeOut()
-    {
-        _wavePromptElement.style.opacity = 0f; // Fade to invisible
-        yield return new WaitForSeconds(0.5f); // Wait for fade to complete
-        _wavePromptElement.style.display = DisplayStyle.None; // Then hide
-    }
+    // private System.Collections.IEnumerator FadeIn()
+    // {
+    //     float duration = 0.5f;
+    //     float elapsedTime = 0f;
 
- 
+    //     while (elapsedTime < duration)
+    //     {
+    //         elapsedTime += Time.deltaTime;
+    //         float opacity = Mathf.Lerp(0f, 1f, elapsedTime / duration);
+    //         _wavePromptElement.style.opacity = opacity;
+    //         yield return null;
+    //     }
+
+    //     _wavePromptElement.style.opacity = 1f; // Ensure final value
+    // }
+
+    // private System.Collections.IEnumerator FadeOut()
+    // {
+    //     float duration = 0.5f;
+    //     float elapsedTime = 0f;
+
+    //     while (elapsedTime < duration)
+    //     {
+    //         elapsedTime += Time.deltaTime;
+    //         float opacity = Mathf.Lerp(1f, 0f, elapsedTime / duration);
+    //         _wavePromptElement.style.opacity = opacity;
+    //         yield return null;
+    //     }
+
+    //     _wavePromptElement.style.opacity = 0f;
+    //     _wavePromptElement.style.display = DisplayStyle.None;
+    // }
+
+
     private void WaveListener()
     {
         if (!_isComplete)
@@ -111,14 +130,14 @@ public class WavePrompt : MonoBehaviour
             if (Mathf.Abs(mouseX) > 0.1f)
             {
                 Debug.Log("Player is moving mouse horizontally.");
-                
+
                 bool movingRight = mouseX > 0;
-                
+
                 // If we've started moving and direction changed
                 if (_hasStartedMoving && _wasMovingRight != movingRight)
                 {
                     _waveCount++;
-                
+
                     if (_waveCount >= totalWavesNeeded)
                     {
                         Debug.Log(totalWavesNeeded + " waves complete!");
@@ -129,14 +148,14 @@ public class WavePrompt : MonoBehaviour
                         return;
                     }
                 }
-            
+
                 _wasMovingRight = movingRight;
                 _hasStartedMoving = true;
             }
 
         }
     }
-    
+
     public bool IsWaveComplete()
     {
         return _isComplete;

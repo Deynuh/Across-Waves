@@ -537,7 +537,7 @@ MonoBehaviour:
       targetNodeID: goodbye
     nextNodeID: 
   - nodeID: goodbye
-    dialogueText: I love you too, bye for now!
+    dialogueText: I love you, bye for now!
     choices: []
     nextNodeID: 
   - nodeID: eloItWas
