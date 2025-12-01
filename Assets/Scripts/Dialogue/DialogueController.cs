@@ -10,6 +10,7 @@ public class DialogueController : MonoBehaviour
     [SerializeField] private DialogueData dialogueData;
     [SerializeField] private string startingNodeID = "start";
     [SerializeField] private string nodeForWave;
+    [SerializeField] private string lagID;
     [SerializeField] private GameObject wavePrompt;
     [SerializeField] private WavePrompt wavePromptScript;
     [SerializeField] private GameObject screen;
@@ -27,6 +28,7 @@ public class DialogueController : MonoBehaviour
     private List<DialogueData.DialogueNode> allNodes;
 
     private ArtManager artManager;
+    private bool lagging = false;
 
 
     private void Awake()
@@ -57,6 +59,11 @@ public class DialogueController : MonoBehaviour
 
     private void ContinueDialogue()
     {
+        if (lagging)
+        {
+            artManager.SelectSprites(2);
+        }
+
         // check if node should trigger the wave prompt
         if (currentNode.nodeID == nodeForWave)
         {
@@ -72,6 +79,7 @@ public class DialogueController : MonoBehaviour
         }
         else if (string.IsNullOrEmpty(currentNode.nextNodeID))
         {
+            lagging = false;
             Debug.Log("End of dialogue, loading next scene");
             SceneLoader.Instance.LoadNextScene();
         }
@@ -125,7 +133,11 @@ public class DialogueController : MonoBehaviour
         Debug.Log("Wave complete, continuing dialogue");
         dialogueContainer.style.display = DisplayStyle.Flex;
         wavePrompt.SetActive(false);
-        artManager.SelectSprites(0);
+        if (!lagging)
+        {
+            artManager.SelectSprites(0);
+        }
+
 
         currentNode = allNodes.FirstOrDefault(node => node.nodeID == nextNodeID);
         if (currentNode != null)
@@ -159,6 +171,12 @@ public class DialogueController : MonoBehaviour
 
     private void DisplayCurrentNode()
     {
+        if (currentNode.nodeID == lagID)
+        {
+            artManager.SelectSprites(2);
+            lagging = true;
+        }
+
         dialogueText.text = currentNode.dialogueText;
 
         // handle choices

@@ -836,8 +836,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eloSprites:
   - {fileID: 1612955324679547690, guid: cbedb2eab818e1144a3683aadbccc605, type: 3}
+  - {fileID: -1927345545821478500, guid: 00d5305679e521d48bf765bda66ba14f, type: 3}
   umiSprites:
   - {fileID: 5658545539211739157, guid: d432c0b046d4e834bbfeecdf4de7fc3c, type: 3}
+  - {fileID: 3264454306018232921, guid: 09fa597b7604a194ba829527bc024b16, type: 3}
 --- !u!82 &2022510950
 AudioSource:
   m_ObjectHideFlags: 0

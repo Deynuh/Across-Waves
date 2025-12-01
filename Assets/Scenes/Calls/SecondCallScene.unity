@@ -580,6 +580,7 @@ MonoBehaviour:
   dialogueData: {fileID: 1008535668}
   startingNodeID: start
   nodeForWave: ily
+  lagID: 
   wavePrompt: {fileID: 935310259}
   wavePromptScript: {fileID: 935310260}
   screen: {fileID: 1180194162}
@@ -716,10 +717,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eloSprites:
   - {fileID: 481709084365198997, guid: fa149376171022440bd2053458a1aa9f, type: 3}
-  - {fileID: 307716012662897823, guid: 61fafc4877723da48a24bc9ebcf2fecf, type: 3}
+  - {fileID: 6009758402121833274, guid: a6a2552699d22cc4ab8ea386047a31c7, type: 3}
+  - {fileID: 3717730117707123255, guid: aa09af3b88c530b41be3f368fe1a0fad, type: 3}
   umiSprites:
   - {fileID: -5384560794722161692, guid: 8c8bb9e394c7f8d4681d9e07c830127c, type: 3}
-  - {fileID: 8292570024035693271, guid: 6f9d03bed8023834fb79e440c527a84f, type: 3}
+  - {fileID: -5223908115117967674, guid: 9fab9d97710a9e542b0ae1a3805739f6, type: 3}
+  - {fileID: 608683241908752133, guid: 7f9a682f397f2bf468f1d17b4e43415d, type: 3}
 --- !u!82 &1180194168
 AudioSource:
   m_ObjectHideFlags: 0
@@ -892,6 +895,7 @@ MonoBehaviour:
   dialogueData: {fileID: 1211660251}
   startingNodeID: start
   nodeForWave: start
+  lagID: eloCanYouHearMe
   wavePrompt: {fileID: 935310259}
   wavePromptScript: {fileID: 935310260}
   screen: {fileID: 1180194162}
