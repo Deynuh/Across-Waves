@@ -1,7 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class BearTemplate {
+public class BearTemplate
+{
     private Vector2 center;
     private float radius;
 
@@ -15,20 +16,29 @@ public class BearTemplate {
     {
         return new List<List<Vector2>>
         {
-            CreateHeadTemplate(),
-            CreateLeftEarTemplate(),
+            CreateRightHalfHeadTemplate(),
             CreateRightEarTemplate(),
-            CreateLeftEyeTemplate(),
             CreateRightEyeTemplate(),
-            CreateNoseTemplate(),
             CreateMouthTemplate()
         };
     }
 
-    private List<Vector2> CreateHeadTemplate()
+    public List<List<Vector2>> CreateNPCTemplates()
+    {
+        return new List<List<Vector2>>
+        {
+            CreateLeftHalfHeadTemplate(),
+            CreateLeftEarTemplate(),
+            CreateLeftEyeTemplate(),
+            CreateNoseTemplate()
+        };
+    }
+
+    private List<Vector2> CreateLeftHalfHeadTemplate()
     {
         var head = new List<Vector2>();
         int headPointCount = 32;
+
         for (int i = 0; i <= headPointCount; i++)
         {
             float angle = i * 2f * Mathf.PI / headPointCount;
@@ -36,11 +46,64 @@ public class BearTemplate {
                 Mathf.Cos(angle) * radius,
                 Mathf.Sin(angle) * radius
             );
-            head.Add(point);
+
+            // Remove buffer - meet exactly at center line
+            if (point.x <= center.x)
+            {
+                head.Add(point);
+            }
         }
         return head;
     }
-    
+
+
+    private List<Vector2> CreateRightHalfHeadTemplate()
+    {
+        var head = new List<Vector2>();
+        int headPointCount = 32;
+
+        for (int i = 0; i <= headPointCount; i++)
+        {
+            float angle = i * 2f * Mathf.PI / headPointCount;
+            Vector2 point = center + new Vector2(
+                Mathf.Cos(angle) * radius,
+                Mathf.Sin(angle) * radius
+            );
+
+            // Remove buffer - meet exactly at center line
+            if (point.x >= center.x)
+            {
+                head.Add(point);
+            }
+        }
+
+        // Sort points by angle to ensure proper drawing order
+        head.Sort((p1, p2) =>
+        {
+            float angle1 = Mathf.Atan2(p1.y - center.y, p1.x - center.x);
+            float angle2 = Mathf.Atan2(p2.y - center.y, p2.x - center.x);
+            return angle1.CompareTo(angle2);
+        });
+
+        return head;
+    }
+
+    // private List<Vector2> CreateHeadTemplate()
+    // {
+    //     var head = new List<Vector2>();
+    //     int headPointCount = 32;
+    //     for (int i = 0; i <= headPointCount; i++)
+    //     {
+    //         float angle = i * 2f * Mathf.PI / headPointCount;
+    //         Vector2 point = center + new Vector2(
+    //             Mathf.Cos(angle) * radius,
+    //             Mathf.Sin(angle) * radius
+    //         );
+    //         head.Add(point);
+    //     }
+    //     return head;
+    // }
+
     List<Vector2> CreateLeftEarTemplate()
     {
         var leftEar = new List<Vector2>();
@@ -60,7 +123,7 @@ public class BearTemplate {
         }
         return leftEar;
     }
-    
+
     List<Vector2> CreateRightEarTemplate()
     {
         var rightEar = new List<Vector2>();
@@ -80,7 +143,7 @@ public class BearTemplate {
         }
         return rightEar;
     }
-    
+
     List<Vector2> CreateLeftEyeTemplate()
     {
         var leftEye = new List<Vector2>();
@@ -118,7 +181,7 @@ public class BearTemplate {
         }
         return rightEye;
     }
-    
+
     List<Vector2> CreateNoseTemplate()
     {
         var nose = new List<Vector2>();

@@ -9,8 +9,8 @@ public class DrawGameSetup : MonoBehaviour
     [SerializeField] private GameObject endDialogue;
     private const float canvasWidth = 1350f;
     private const float canvasHeight = 800f;
-    private Vector2 center = new Vector2(canvasWidth/2f, canvasHeight/2f);
-    private float radius = canvasWidth/5f;
+    private Vector2 center = new Vector2(canvasWidth / 2f, canvasHeight / 2f);
+    private float radius = canvasWidth / 5f;
     void Start()
     {
         // Get Canvas
@@ -20,7 +20,7 @@ public class DrawGameSetup : MonoBehaviour
         var clearButton = canvas.Q<Button>("ClearDrawing");
         var undoButton = canvas.Q<Button>("Undo");
         // show this after the npc finishes drawing, make it trigger last dialogue.
-        var doneButton = canvas.Q<Button>("Done"); 
+        var doneButton = canvas.Q<Button>("Done");
 
         // Create the drawing area first
         drawArea = new LineDraw();
@@ -39,11 +39,11 @@ public class DrawGameSetup : MonoBehaviour
                 titlePage.style.display = DisplayStyle.None;
                 clearButton.style.display = DisplayStyle.Flex;
                 undoButton.style.display = DisplayStyle.Flex;
-                
+
                 // set up bear template
                 var bearTemplate = new BearTemplate(center, radius);
                 var allTemplates = bearTemplate.CreateAllTemplates();
-    
+
                 foreach (var template in allTemplates)
                 {
                     drawArea.AddTemplate(template);
@@ -56,28 +56,31 @@ public class DrawGameSetup : MonoBehaviour
                     Debug.Log("NPC finished! Showing done button.");
                     doneButton.style.display = DisplayStyle.Flex;
                 });
-                
+
                 firstClick = false;
-            }        
+            }
         });
 
         // clear button listener
-        clearButton.clicked += () => {
+        clearButton.clicked += () =>
+        {
             Debug.Log("Clear button clicked!");
             drawArea.ClearDrawing();
         };
 
         // undo button listener
-        undoButton.clicked += () => {
+        undoButton.clicked += () =>
+        {
             Debug.Log("Undo button clicked!");
             if (drawArea != null)
             {
                 drawArea.Undo();
             }
         };
-        
-         // done button listener
-        doneButton.clicked += () => {
+
+        // done button listener
+        doneButton.clicked += () =>
+        {
             Debug.Log("Done button clicked!");
             //hide this game component
             endDialogue.SetActive(true);
@@ -87,37 +90,19 @@ public class DrawGameSetup : MonoBehaviour
         // Add it to UI
         canvas.Add(drawArea);
     }
-    
+
     List<Vector2> CreateNPCDrawing(List<List<Vector2>> allTemplates)
     {
         var npcLines = new List<Vector2>();
 
-        for (int i = 0; i < allTemplates.Count; i++)
-        {
-            var template = allTemplates[i];
+        // Get NPC-specific templates instead of filtering player templates
+        var bearTemplate = new BearTemplate(center, radius);
+        var npcTemplates = bearTemplate.CreateNPCTemplates();
 
-            if (i == 0) // Head - include left half only
-            {
-                var leftHalfPoints = new List<Vector2>();
-                foreach (var point in template)
-                {
-                    if (point.x <= center.x + (radius * 0.1f))
-                    {
-                        leftHalfPoints.Add(point);
-                    }
-                }
-                if (leftHalfPoints.Count > 0)
-                {
-                    npcLines.AddRange(leftHalfPoints);
-                    npcLines.Add(new Vector2(float.NaN, float.NaN));
-                }
-            }
-            else if (i == 1 || i == 3 || i == 5) // Left ear (1), Left eye (3), Nose (5) - include completely
-            {
-                npcLines.AddRange(template);
-                npcLines.Add(new Vector2(float.NaN, float.NaN));
-            }
-            // Skip: Right ear (2), Right eye (4), Mouth (6)
+        foreach (var template in npcTemplates)
+        {
+            npcLines.AddRange(template);
+            npcLines.Add(new Vector2(float.NaN, float.NaN));
         }
 
         // Remove the last line break if it exists

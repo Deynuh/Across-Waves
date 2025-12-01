@@ -12,7 +12,7 @@ public class DialogueController : MonoBehaviour
     [SerializeField] private GameObject wavePrompt;
     [SerializeField] private WavePrompt wavePromptScript;
     [SerializeField] private GameObject screen;
-    
+
     private Button choice1;
     private Button choice2;
     private Label dialogueText;
@@ -20,15 +20,15 @@ public class DialogueController : MonoBehaviour
 
     private DialogueData.DialogueNode currentNode;
     private List<DialogueData.DialogueNode> allNodes;
-    
+
     private void Awake()
     {
         wavePromptScript = wavePrompt.GetComponent<WavePrompt>();
-        
+
         dialogueContainer = GetComponent<UIDocument>().rootVisualElement.Q("Box") as VisualElement;
         dialogueText = GetComponent<UIDocument>().rootVisualElement.Q("Text") as Label;
         dialogueText.RegisterCallback<ClickEvent>(OnDialogueClick);
-        
+
         choice1 = GetComponent<UIDocument>().rootVisualElement.Q("Choice1") as Button;
         choice1.RegisterCallback<ClickEvent>(OnChoice1Click);
         choice2 = GetComponent<UIDocument>().rootVisualElement.Q("Choice2") as Button;
@@ -36,7 +36,7 @@ public class DialogueController : MonoBehaviour
 
         allNodes = dialogueData.nodes;
     }
-    
+
     private void OnDialogueClick(ClickEvent e)
     {
         // Only continue if there are no choices
@@ -45,7 +45,7 @@ public class DialogueController : MonoBehaviour
             ContinueDialogue();
         }
     }
-    
+
     private void ContinueDialogue()
     {
         // check if node should trigger the wave prompt
@@ -56,7 +56,7 @@ public class DialogueController : MonoBehaviour
         }
         else if (string.IsNullOrEmpty(currentNode.nextNodeID))
         {
-            // // display current node and then after a small 3 second wait, show game invite
+            // display current node and then after a small 3 second wait, show game invite
             Debug.Log("Reached last node, preparing to show game");
             StartCoroutine(ShowGameInviteAfterDelay(3f));
         }
@@ -74,7 +74,7 @@ public class DialogueController : MonoBehaviour
             }
         }
     }
-    
+
     private IEnumerator ShowGameInviteAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -82,20 +82,20 @@ public class DialogueController : MonoBehaviour
         screen.GetComponent<UIDocument>().rootVisualElement.Q("GameInvite").style.display = DisplayStyle.Flex;
         dialogueContainer.style.display = DisplayStyle.None;
     }
-    
+
     private IEnumerator WaitForWaveCompletion(string nextNodeID)
     {
         dialogueContainer.style.display = DisplayStyle.None;
-        
+
         while (!wavePromptScript.IsWaveComplete())
         {
             yield return null;
         }
-    
+
         Debug.Log("Wave complete, continuing dialogue");
         dialogueContainer.style.display = DisplayStyle.Flex;
         wavePrompt.SetActive(false);
-        
+
         currentNode = allNodes.FirstOrDefault(node => node.nodeID == nextNodeID);
         if (currentNode != null)
         {
@@ -124,11 +124,11 @@ public class DialogueController : MonoBehaviour
             Debug.LogError("Starting node not found: " + startingNodeID);
         }
     }
-    
+
     private void DisplayCurrentNode()
     {
         dialogueText.text = currentNode.dialogueText;
-        
+
         // handle choices
         if (currentNode.choices != null && currentNode.choices.Count == 2)
         {
@@ -144,8 +144,8 @@ public class DialogueController : MonoBehaviour
             choice2.style.display = DisplayStyle.None;
         }
     }
-    
-    private void OnChoice1Click(ClickEvent e) 
+
+    private void OnChoice1Click(ClickEvent e)
     {
         if (currentNode.choices != null && currentNode.choices.Count > 0)
         {
@@ -180,7 +180,7 @@ public class DialogueController : MonoBehaviour
             }
         }
     }
-    
+
     // Disables choice buttons when disabled, good practice
     private void OnDisable()
     {
