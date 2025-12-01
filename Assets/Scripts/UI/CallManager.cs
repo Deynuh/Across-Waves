@@ -11,18 +11,24 @@ public class CallManager : MonoBehaviour
     private VisualElement incomingCall;
 
     [SerializeField] private GameObject dialogue;
+    private AudioSource audioSource;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         acceptButton = GetComponent<UIDocument>().rootVisualElement.Q<Button>("Accept");
         callScreen = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("CallScreen");
         incomingCall = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("IncomingCall");
 
         acceptButton.clicked += OnAcceptButtonClicked;
+
+        audioSource.loop = true;
+        audioSource.Play();
     }
 
     void OnAcceptButtonClicked()
     {
+        audioSource.Stop();
         incomingCall.style.display = DisplayStyle.None;
         callScreen.style.display = DisplayStyle.Flex;
 
@@ -38,6 +44,7 @@ public class CallManager : MonoBehaviour
 
     void OnDestroy()
     {
+        audioSource.Stop();
         // Unregister to prevent memory leaks
         if (acceptButton != null)
         {
