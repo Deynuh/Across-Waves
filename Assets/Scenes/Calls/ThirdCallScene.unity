@@ -314,6 +314,9 @@ MonoBehaviour:
   wavePrompt: {fileID: 96260391}
   wavePromptScript: {fileID: 96260392}
   screen: {fileID: 1168093058}
+  shouldShowGameInvite: 0
+  shouldShowConnectionGame: 0
+  connectionGame: {fileID: 0}
 --- !u!114 &623363156
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -489,6 +492,7 @@ GameObject:
   - component: {fileID: 1168093059}
   - component: {fileID: 1168093061}
   - component: {fileID: 1168093062}
+  - component: {fileID: 1168093063}
   m_Layer: 5
   m_Name: Screen
   m_TagString: Untagged
@@ -556,6 +560,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue: {fileID: 623363153}
+--- !u!114 &1168093063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1168093058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8edfa3ae2bf9d0f42b65c9ceff7b25a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eloSprites:
+  - {fileID: -1173728038352146697, guid: dc4ce745b67db1c42abaeab5da509fe8, type: 3}
+  umiSprites:
+  - {fileID: 2502652256392157101, guid: 82762aebcd67ce94f824149d6dcbb2f4, type: 3}
 --- !u!1 &1934493084
 GameObject:
   m_ObjectHideFlags: 0

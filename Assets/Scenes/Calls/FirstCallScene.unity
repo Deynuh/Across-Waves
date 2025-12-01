@@ -321,6 +321,8 @@ MonoBehaviour:
   wavePromptScript: {fileID: 162102922}
   screen: {fileID: 1125193225}
   shouldShowGameInvite: 1
+  shouldShowConnectionGame: 0
+  connectionGame: {fileID: 0}
 --- !u!114 &817045505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -563,6 +565,8 @@ MonoBehaviour:
   wavePromptScript: {fileID: 162102922}
   screen: {fileID: 1125193225}
   shouldShowGameInvite: 0
+  shouldShowConnectionGame: 0
+  connectionGame: {fileID: 0}
 --- !u!114 &870425113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -702,6 +706,7 @@ GameObject:
   - component: {fileID: 1125193228}
   - component: {fileID: 1125193229}
   - component: {fileID: 1125193230}
+  - component: {fileID: 1125193231}
   m_Layer: 5
   m_Name: Screen
   m_TagString: Untagged
@@ -782,6 +787,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   miniGame: {fileID: 598761121}
+--- !u!114 &1125193231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125193225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8edfa3ae2bf9d0f42b65c9ceff7b25a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eloSprites:
+  - {fileID: -3702365432698766895, guid: de334ad40aef46147b74cfc1bd7df50a, type: 3}
+  - {fileID: 307716012662897823, guid: 61fafc4877723da48a24bc9ebcf2fecf, type: 3}
+  umiSprites:
+  - {fileID: -5553452531101550368, guid: f2bba37a8f240cf40a441e3046317912, type: 3}
+  - {fileID: 8292570024035693271, guid: 6f9d03bed8023834fb79e440c527a84f, type: 3}
 --- !u!1 &1719036011
 GameObject:
   m_ObjectHideFlags: 0

@@ -389,6 +389,7 @@ GameObject:
   - component: {fileID: 1180194163}
   - component: {fileID: 1180194165}
   - component: {fileID: 1180194166}
+  - component: {fileID: 1180194167}
   m_Layer: 5
   m_Name: Screen
   m_TagString: Untagged
@@ -456,6 +457,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue: {fileID: 1211660250}
+--- !u!114 &1180194167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1180194162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8edfa3ae2bf9d0f42b65c9ceff7b25a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eloSprites:
+  - {fileID: 481709084365198997, guid: fa149376171022440bd2053458a1aa9f, type: 3}
+  umiSprites:
+  - {fileID: -5384560794722161692, guid: 8c8bb9e394c7f8d4681d9e07c830127c, type: 3}
 --- !u!1 &1211660250
 GameObject:
   m_ObjectHideFlags: 0
