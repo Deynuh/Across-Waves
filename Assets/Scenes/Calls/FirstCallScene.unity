@@ -320,6 +320,7 @@ MonoBehaviour:
   wavePrompt: {fileID: 162102921}
   wavePromptScript: {fileID: 162102922}
   screen: {fileID: 1125193225}
+  shouldShowGameInvite: 1
 --- !u!114 &817045505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -561,6 +562,7 @@ MonoBehaviour:
   wavePrompt: {fileID: 162102921}
   wavePromptScript: {fileID: 162102922}
   screen: {fileID: 1125193225}
+  shouldShowGameInvite: 0
 --- !u!114 &870425113
 MonoBehaviour:
   m_ObjectHideFlags: 0

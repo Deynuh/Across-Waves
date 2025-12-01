@@ -534,6 +534,9 @@ MonoBehaviour:
   wavePrompt: {fileID: 935310259}
   wavePromptScript: {fileID: 935310260}
   screen: {fileID: 1180194162}
+  shouldShowGameInvite: 0
+  shouldShowConnectionGame: 1
+  connectionGame: {fileID: 94979996}
 --- !u!114 &1211660253
 MonoBehaviour:
   m_ObjectHideFlags: 0

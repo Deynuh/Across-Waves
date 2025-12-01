@@ -12,6 +12,9 @@ public class DialogueController : MonoBehaviour
     [SerializeField] private GameObject wavePrompt;
     [SerializeField] private WavePrompt wavePromptScript;
     [SerializeField] private GameObject screen;
+    [SerializeField] private bool shouldShowGameInvite = false;
+    [SerializeField] private bool shouldShowConnectionGame = false;
+    [SerializeField] private GameObject connectionGame;
 
     private Button choice1;
     private Button choice2;
@@ -27,7 +30,7 @@ public class DialogueController : MonoBehaviour
 
         dialogueContainer = GetComponent<UIDocument>().rootVisualElement.Q("Box") as VisualElement;
         dialogueText = GetComponent<UIDocument>().rootVisualElement.Q("Text") as Label;
-        dialogueText.RegisterCallback<ClickEvent>(OnDialogueClick);
+        dialogueContainer.RegisterCallback<ClickEvent>(OnDialogueClick);
 
         choice1 = GetComponent<UIDocument>().rootVisualElement.Q("Choice1") as Button;
         choice1.RegisterCallback<ClickEvent>(OnChoice1Click);
@@ -79,7 +82,21 @@ public class DialogueController : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         Debug.Log("Showing game after delay");
-        screen.GetComponent<UIDocument>().rootVisualElement.Q("GameInvite").style.display = DisplayStyle.Flex;
+
+        if (shouldShowGameInvite)
+        {
+            var gameInviteElement = screen.GetComponent<UIDocument>().rootVisualElement.Q("GameInvite");
+            if (gameInviteElement != null)
+            {
+                gameInviteElement.style.display = DisplayStyle.Flex;
+            }
+        }
+
+        if (shouldShowConnectionGame && connectionGame != null)
+        {
+            connectionGame.SetActive(true);
+        }
+
         dialogueContainer.style.display = DisplayStyle.None;
     }
 
