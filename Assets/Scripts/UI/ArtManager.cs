@@ -16,7 +16,6 @@ public class ArtManager : MonoBehaviour
     {
         callScreen = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("CallScreen");
         playerCam = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("PlayerCam");
-
         SetBackgroundSprites(0);
     }
 
@@ -51,5 +50,10 @@ public class ArtManager : MonoBehaviour
     public void ResetToFirst()
     {
         SetBackgroundSprites(0);
+    }
+
+    public void SelectSprites(int index)
+    {
+        SetBackgroundSprites(index);
     }
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 
 public class DialogueController : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class DialogueController : MonoBehaviour
     [SerializeField] private bool shouldShowGameInvite = false;
     [SerializeField] private bool shouldShowConnectionGame = false;
     [SerializeField] private GameObject connectionGame;
+    [SerializeField] private string endingNodeID = "end";
+    [SerializeField] private GameObject fade;
 
     private Button choice1;
     private Button choice2;
@@ -24,9 +27,13 @@ public class DialogueController : MonoBehaviour
     private DialogueData.DialogueNode currentNode;
     private List<DialogueData.DialogueNode> allNodes;
 
+    private ArtManager artManager;
+
+
     private void Awake()
     {
         wavePromptScript = wavePrompt.GetComponent<WavePrompt>();
+        artManager = FindFirstObjectByType<ArtManager>();
 
         dialogueContainer = GetComponent<UIDocument>().rootVisualElement.Q("Box") as VisualElement;
         dialogueText = GetComponent<UIDocument>().rootVisualElement.Q("Text") as Label;
@@ -55,17 +62,21 @@ public class DialogueController : MonoBehaviour
         if (currentNode.nodeID == nodeForWave)
         {
             wavePrompt.SetActive(true);
+            artManager.SelectSprites(1);
             StartCoroutine(WaitForWaveCompletion(currentNode.nextNodeID));
         }
-        else if (string.IsNullOrEmpty(currentNode.nextNodeID))
+        // display current node and then after a small 3 second wait, show game invite
+        else if (string.IsNullOrEmpty(currentNode.nextNodeID) && shouldShowGameInvite)
         {
-            // display current node and then after a small 3 second wait, show game invite
+
             Debug.Log("Reached last node, preparing to show game");
             StartCoroutine(ShowGameInviteAfterDelay(3f));
+
         }
+        // go to next node
         else
         {
-            // go to next node
+
             currentNode = allNodes.FirstOrDefault(node => node.nodeID == currentNode.nextNodeID);
             if (currentNode != null)
             {
@@ -112,15 +123,17 @@ public class DialogueController : MonoBehaviour
         Debug.Log("Wave complete, continuing dialogue");
         dialogueContainer.style.display = DisplayStyle.Flex;
         wavePrompt.SetActive(false);
+        artManager.SelectSprites(0);
 
         currentNode = allNodes.FirstOrDefault(node => node.nodeID == nextNodeID);
         if (currentNode != null)
         {
             DisplayCurrentNode();
         }
-        else
+        else if (string.IsNullOrEmpty(nextNodeID) || nextNodeID == endingNodeID)
         {
-            Debug.LogError("Node not found: " + nextNodeID);
+            Debug.Log("End of dialogue and final wave in scene, handling scene transition.");
+            SceneLoader.Instance.OnWaveFinished();
         }
     }
 
