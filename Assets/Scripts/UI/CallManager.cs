@@ -17,7 +17,7 @@ public class CallManager : MonoBehaviour
         acceptButton = GetComponent<UIDocument>().rootVisualElement.Q<Button>("Accept");
         callScreen = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("CallScreen");
         incomingCall = GetComponent<UIDocument>().rootVisualElement.Q<VisualElement>("IncomingCall");
-        
+
         acceptButton.clicked += OnAcceptButtonClicked;
     }
 
@@ -32,10 +32,10 @@ public class CallManager : MonoBehaviour
 
     private IEnumerator EnableDialogueAfterDelay()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         dialogue.SetActive(true);
     }
-    
+
     void OnDestroy()
     {
         // Unregister to prevent memory leaks
